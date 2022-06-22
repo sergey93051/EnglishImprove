@@ -1,0 +1,41 @@
+<template>
+    <main>
+         <header>
+              <Top />  
+              <Navbar />    
+         </header>
+         <router-view  />
+    </main>
+</template>
+
+<script>
+import Navbar from '../static/Navbar.vue'
+import Top from '../static/Top.vue'
+export default {
+
+ data(){
+   return {
+        sessionAuth:''
+   }
+ },
+ components:{
+       Navbar,
+       Top 
+ },
+ created() {
+     this.sessionAuth = JSON.parse(sessionStorage.getItem('isAuth'));
+ },
+ 
+};
+</script>
+<style>
+  body{
+    font-family: "Work Sans", Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.8;
+    font-weight: 400;
+  }
+  .py-2 {
+    padding-top: 0.5rem !important;
+}
+</style>
