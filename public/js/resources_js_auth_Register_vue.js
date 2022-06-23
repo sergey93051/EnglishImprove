@@ -20,9 +20,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
-    return [{
-      red: 1
-    }]; //  console.log(this.$store.dispatch('register'))
+    return {
+      email: "",
+      password: ""
+    }; //  console.log(this.$store.dispatch('register'))
     //  this.$store.dispatch('')
     //  defineRule('required', required);
     //  defineRule('email', email);
@@ -47,14 +48,16 @@ __webpack_require__.r(__webpack_exports__);
       });
     }
   },
-  beforeCreate: function beforeCreate() {
-    this.$store.dispatch('register');
-  },
+  beforeCreate: function beforeCreate() {},
   created: function created() {
     console.log(this.$store.getters.getData);
   },
   methods: {
     onRegister: function onRegister() {
+      this.$store.dispatch('register', {
+        email: this.email,
+        password: this.password
+      });
       console.log('Submitting :(');
     }
   }
@@ -182,16 +185,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Field, {
         type: "email",
         id: "form3Example3cg",
+        modelValue: $data.email,
+        "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+          return $data.email = $event;
+        }),
         "class": "form-control form-control-lg",
         name: "email"
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ErrorMessage, {
+      }, null, 8
+      /* PROPS */
+      , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ErrorMessage, {
         name: "email"
       })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Field, {
         type: "password",
         id: "form3Example4cg",
+        modelValue: $data.password,
+        "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+          return $data.password = $event;
+        }),
         "class": "form-control form-control-lg",
         name: "password"
-      }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ErrorMessage, {
+      }, null, 8
+      /* PROPS */
+      , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ErrorMessage, {
         name: "password"
       })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-outline mb-4\">\r\n                  <Field type=\"password\" id=\"form3Example4cdg\" class=\"form-control form-control-lg\" />\r\n                  <label class=\"form-label\" for=\"form3Example4cdg\">Repeat your password</label>\r\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-check d-flex justify-content-center mb-5\">\r\n                  <input class=\"form-check-input me-2\" type=\"checkbox\" value=\"\" id=\"form2Example3cg\" />\r\n                  <label class=\"form-check-label\" for=\"form2Example3g\">\r\n                    I agree all statements in <a href=\"#!\" class=\"text-body\"><u>Terms of service</u></a>\r\n                  </label>\r\n                </div> "), _hoisted_15, _hoisted_16];
     }),

@@ -7,17 +7,15 @@ export default {
         async csrf(){ 
             
              try{
-                    const sanctum = await axios.get('/sanctum/csrf-cookie');  
+                    const sanctum = await axios.get('/v1/test');  
                       
                     if (sanctum.status == 204) {                   
-                           return sanctum.status;             
-                      
-                    }else{
-                        throw new Error(419+'(Hacking attempt)');
-                    }                  
+                           return true;    
+                     }
+                    throw new SyntaxError(419+'(Hacking attempt)');                                
                    
              }catch(error){                  
-                  throw new Error(419+'(Hacking attempt)');
+                 console.error(error.message);
              }   
               
          }

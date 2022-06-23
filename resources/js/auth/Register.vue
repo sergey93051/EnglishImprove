@@ -11,12 +11,12 @@
               <Form @submit="onRegister" :validation-schema="schema" >
                 <div class="form-outline mb-4">
                   <label class="form-label" for="form3Example3cg">Your Email</label>
-                   <Field type="email" id="form3Example3cg"  class="form-control form-control-lg" name="email" />                 
+                   <Field type="email" id="form3Example3cg" v-model="email" class="form-control form-control-lg" name="email" />                 
                    <p class="emailError"><ErrorMessage name="email" /></p>
                 </div>
                 <div class="form-outline mb-4">
                    <label class="form-label" for="form3Example4cg">Password</label>
-                   <Field type="password" id="form3Example4cg"  class="form-control form-control-lg"  name="password" />   
+                   <Field type="password" id="form3Example4cg" v-model="password"  class="form-control form-control-lg"  name="password" />   
                    <p class="passwordError"><ErrorMessage name="password" /></p>
                 </div>
                 <!-- <div class="form-outline mb-4">
@@ -54,12 +54,11 @@ import * as yup from 'yup';
 
 export default {  
       data() {
-          
-           return [
-             {
-                red:1
-             }
-           ]
+           return{
+               email:"",
+               password:""
+           }
+      
         //  console.log(this.$store.dispatch('register'))
         //  this.$store.dispatch('')
         //  defineRule('required', required);
@@ -88,13 +87,17 @@ components: {
     },
   },
   beforeCreate(){
-          this.$store.dispatch('register');
+        
   },
   created(){    
        console.log(this.$store.getters.getData)
   },
   methods: {
-    onRegister() {
+    onRegister() {        
+      this.$store.dispatch('register',{
+          email:this.email,
+          password:this.password
+      });
       console.log('Submitting :(');
     },
   },

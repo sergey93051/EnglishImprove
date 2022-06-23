@@ -23665,36 +23665,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/sanctum/csrf-cookie');
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/v1/test');
 
               case 3:
                 sanctum = _context.sent;
 
                 if (!(sanctum.status == 204)) {
-                  _context.next = 8;
+                  _context.next = 6;
                   break;
                 }
 
-                return _context.abrupt("return", sanctum.status);
+                return _context.abrupt("return", true);
 
-              case 8:
-                throw new Error(419 + '(Hacking attempt)');
+              case 6:
+                throw new SyntaxError(419 + '(Hacking attempt)');
 
               case 9:
-                _context.next = 14;
-                break;
-
-              case 11:
-                _context.prev = 11;
+                _context.prev = 9;
                 _context.t0 = _context["catch"](0);
-                throw new Error(419 + '(Hacking attempt)');
+                console.error(_context.t0.message);
 
-              case 14:
+              case 12:
               case "end":
                 return _context.stop();
             }
           }
-        }, _callee, null, [[0, 11]]);
+        }, _callee, null, [[0, 9]]);
       }))();
     }
   },
@@ -23987,22 +23983,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return _this.dispatch('csrf');
 
               case 2:
-                _context.t0 = _context.sent;
-
-                if (!(_context.t0 == 204)) {
-                  _context.next = 9;
+                if (!_context.sent) {
+                  _context.next = 8;
                   break;
                 }
 
-                _context.next = 6;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get('api/v1/test');
+                _context.next = 5;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/v1/register', [{
+                  email: arg.email,
+                  password: arg.password
+                }]);
 
-              case 6:
+              case 5:
                 response = _context.sent;
                 console.log(response);
                 stx.commit("register", true);
 
-              case 9:
+              case 8:
               case "end":
                 return _context.stop();
             }

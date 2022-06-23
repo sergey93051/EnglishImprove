@@ -4,10 +4,15 @@ export default {
     
     actions: {        
         async register(stx,arg){ 
-
-               if (await this.dispatch('csrf') == 204) {   
-                         const response = await axios.get('api/v1/test'); 
-                         console.log(response)    
+  
+               if (await this.dispatch('csrf')) {   
+                         const response = await axios.post('/v1/register',[
+                             {
+                                email:arg.email,
+                                password:arg.password
+                             }
+                         ]); 
+                         console.log(response)
                          stx.commit("register",true)   
                  }
 

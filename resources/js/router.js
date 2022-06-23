@@ -2,18 +2,20 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
     {
-    name: "login",
-    path: '/login',
-    component: () => import('./auth/Login.vue'),
-    // beforeEnter:checkGuest
-    },
 
-  {
-    name: "register",
-    path: '/register',
-    component: () => import('./auth/Register.vue'),
+     name: "login",
+     path: '/login',
+     component: () => import('./auth/Login.vue'),
+     // beforeEnter:checkGuest
+
+    },
+    {
+
+      name: "register",
+      path: '/register',
+      component: () => import('./auth/Register.vue'),
  
-  },
+    },
 
   // {
   //   path: "/:catchAll(.*)",
@@ -23,7 +25,7 @@ const routes = [
 ]
 
 function checkGuest(to, from, next){
-  return  JSON.parse(sessionStorage.getItem('isAuth'))==false ?  next() : next({ name: "home" })
+   return  JSON.parse(sessionStorage.getItem('isAuth'))==false ?  next() : next({ name: "home" });
 }
 
 function checkAuth(to, from, next) {
@@ -49,7 +51,6 @@ function checkAuth(to, from, next) {
     return next();
   }
 }
-
 
 export default createRouter({
   history: createWebHistory(),
