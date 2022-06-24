@@ -2,7 +2,7 @@
     <main>
          <header>
               <Top />  
-              <Navbar />    
+              <Navbar :isAuth='sessionAuth' />    
          </header>
          <router-view  />
     </main>
@@ -15,7 +15,7 @@ export default {
 
  data(){
    return {
-        sessionAuth:''
+        sessionAuth:false
    }
  },
  components:{
@@ -23,7 +23,7 @@ export default {
        Top 
  },
  created() {
-     this.sessionAuth = JSON.parse(sessionStorage.getItem('isAuth'));
+    //  this.sessionAuth = JSON.parse(sessionStorage.getItem('isAuth'));
  },
  
 };

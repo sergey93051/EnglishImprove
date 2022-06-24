@@ -8,15 +8,22 @@
           <div class="card">
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Create an account</h2>
-              <Form @submit="onRegister" :validation-schema="schema" >
+              <Form @submit="onRegister" :validation-schema="schemaRegister" >
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example3cg">Your Email</label>
-                   <Field type="email" id="form3Example3cg" v-model="email" class="form-control form-control-lg" name="email" />                 
+                  <label class="form-label" for="email">Your Email</label>
+                   <Field type="email" id="email" v-model="email" class="form-control form-control-lg" name="email" />                 
                    <p class="emailError"><ErrorMessage name="email" /></p>
                 </div>
+               <div class="form-outline mb-4">
+                 <label class="form-label" for="chooseRole">Choose Your Roles</label>
+                <select class="form-control form-control-lg" data-style="btn-primary" v-model="chooseRole" id="chooseRole">
+                     <option value="T">Teacher</option>
+                     <option value="S" selected>Student</option>
+                </select>
+              </div>
                 <div class="form-outline mb-4">
-                   <label class="form-label" for="form3Example4cg">Password</label>
-                   <Field type="password" id="form3Example4cg" v-model="password"  class="form-control form-control-lg"  name="password" />   
+                   <label class="form-label" for="password">Password</label>
+                   <Field type="password" id="password" v-model="password"  class="form-control form-control-lg"  name="password" />   
                    <p class="passwordError"><ErrorMessage name="password" /></p>
                 </div>
                 <!-- <div class="form-outline mb-4">
@@ -56,7 +63,8 @@ export default {
       data() {
            return{
                email:"",
-               password:""
+               password:"",
+               chooseRole:""
            }
       
         //  console.log(this.$store.dispatch('register'))
@@ -79,7 +87,7 @@ components: {
     ErrorMessage
   },
   computed:{
-   schema() {
+   schemaRegister() {
       return yup.object({
            email:yup.string().email().required(),
            password: yup.string().min(6).required(),
@@ -93,16 +101,15 @@ components: {
        console.log(this.$store.getters.getData)
   },
   methods: {
-    onRegister() {        
-      this.$store.dispatch('register',{
-          email:this.email,
-          password:this.password
-      });
+    onRegister() {     
+       console.log(this.chooseRole)   
+      // this.$store.dispatch('register',{
+      //     email:this.email,
+      //     password:this.password
+      // });
       console.log('Submitting :(');
     },
   },
-
-
 }
 </script>
 <style scoped>
