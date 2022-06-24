@@ -1,23 +1,6 @@
 <?php
-use App\Http\Controllers\HomeController;
-// use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterController;
 
-Route::get('/sanctum/checkauth', function(){return true;})->middleware('auth:sanctum');
- 
-Route::post('/register',[RegisterController::class,'register']);
+use \Illuminate\Support\Facades\Route;
 
-Route::get("/test",function(){
-        return response()->json(['n'=>''],400);
-});
-
-
-// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-
-
-
-
+Route::post('register',\App\Http\Controllers\Api\Auth\V1\RegisterController::class);
+Route::post('login',\App\Http\Controllers\Api\Auth\V1\LoginController::class);
