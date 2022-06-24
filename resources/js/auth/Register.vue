@@ -56,9 +56,6 @@ import { Form,Field,ErrorMessage  } from 'vee-validate';
 import * as yup from 'yup';
 // import { required, email, min } from '@vee-validate/rules';
 // import { defineRule } from 'vee-validate';
-
-
-
 export default {  
       data() {
            return{
@@ -72,13 +69,13 @@ export default {
         //  defineRule('required', required);
         //  defineRule('email', email);
         //  defineRule('min', min);
-    //      const simpleSchema = { 
-    //           password: 'required|min:8',
+        //   const simpleSchema = { 
+       //           password: 'required|min:8',
      
-    // };
-    // return {
-    //   simpleSchema,
-    // };
+       // };
+       // return {
+       //   simpleSchema,
+      // };
   },
 
 components: {

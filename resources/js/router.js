@@ -20,6 +20,13 @@ const routes = [
       component: () => import('./auth/Register.vue'),
  
     },
+    {
+
+      name: "profile",
+      path: '/profile',
+      component: () => import('./path/Profile.vue'),
+ 
+    },
 
   // {
   //   path: "/:catchAll(.*)",

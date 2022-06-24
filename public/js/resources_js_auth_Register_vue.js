@@ -29,7 +29,7 @@ __webpack_require__.r(__webpack_exports__);
     //  defineRule('required', required);
     //  defineRule('email', email);
     //  defineRule('min', min);
-    //      const simpleSchema = { 
+    //   const simpleSchema = { 
     //           password: 'required|min:8',
     // };
     // return {
