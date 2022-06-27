@@ -1,6 +1,6 @@
 <template>
     <main>
-         <header>
+         <header v-if="noPath">
               <Top />  
               <Navbar :isAuth='sessionAuth' />    
          </header>
@@ -15,9 +15,17 @@ export default {
 
  data(){
    return {
-        sessionAuth:true
+        noPath:true,
+        sessionAuth:false
    }
  },
+  watch: {
+  '$route'(to, from){   
+        if (to.name=='noFound') {
+             this.noPath = false
+        } 
+   }
+  },
  components:{
        Navbar,
        Top 

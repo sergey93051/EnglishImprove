@@ -55,12 +55,11 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onRegister: function onRegister() {
-      console.log(this.chooseRole); // this.$store.dispatch('register',{
-      //     email:this.email,
-      //     password:this.password
-      // });
-
-      console.log('Submitting :(');
+      this.$store.dispatch('register', {
+        email: this.email,
+        role: this.chooseRole,
+        password: this.password
+      });
     }
   }
 });
@@ -149,7 +148,7 @@ var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
 
 var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-    value: "T"
+    value: "Teacher"
   }, "Teacher", -1
   /* HOISTED */
   );
@@ -157,7 +156,7 @@ var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
 
 var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
-    value: "S",
+    value: "Student",
     selected: ""
   }, "Student", -1
   /* HOISTED */
@@ -229,7 +228,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ErrorMessage, {
         name: "email"
       })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
-        "class": "form-control form-control-lg",
+        name: "chooseRole",
+        "class": "form-control",
         "data-style": "btn-primary",
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
           return $data.chooseRole = $event;

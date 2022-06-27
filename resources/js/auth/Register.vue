@@ -16,9 +16,9 @@
                 </div>
                <div class="form-outline mb-4">
                  <label class="form-label" for="chooseRole">Choose Your Roles</label>
-                <select class="form-control form-control-lg" data-style="btn-primary" v-model="chooseRole" id="chooseRole">
-                     <option value="T">Teacher</option>
-                     <option value="S" selected>Student</option>
+                <select name="chooseRole" class="form-control" data-style="btn-primary" v-model="chooseRole" id="chooseRole">
+                     <option value="Teacher">Teacher</option>
+                     <option value="Student" selected>Student</option>
                 </select>
               </div>
                 <div class="form-outline mb-4">
@@ -52,7 +52,7 @@
 </template>
 <script>
 import { mapActions } from 'vuex';
-import { Form,Field,ErrorMessage  } from 'vee-validate';
+import { Form,Field,ErrorMessage} from 'vee-validate';
 import * as yup from 'yup';
 // import { required, email, min } from '@vee-validate/rules';
 // import { defineRule } from 'vee-validate';
@@ -98,15 +98,15 @@ components: {
        console.log(this.$store.getters.getData)
   },
   methods: {
-    onRegister() {     
-       console.log(this.chooseRole)   
-      // this.$store.dispatch('register',{
-      //     email:this.email,
-      //     password:this.password
-      // });
-      console.log('Submitting :(');
+    onRegister() {  
+      this.$store.dispatch('register',{
+          email:this.email,
+          role:this.chooseRole,
+          password:this.password
+      });
+
     },
-  },
+  }, 
 }
 </script>
 <style scoped>

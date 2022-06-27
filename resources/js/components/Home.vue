@@ -164,8 +164,7 @@ export default {
     // }
   }, 
   methods: {
-       ...mapActions(['setToCart']),
-       
+       ...mapActions(['setToCart']),       
         addCart(id,event){         
         this.setToCart({
              "searchResult":this.searchResult,

@@ -23050,8 +23050,16 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   data: function data() {
     return {
-      sessionAuth: true
+      noPath: true,
+      sessionAuth: false
     };
+  },
+  watch: {
+    '$route': function $route(to, from) {
+      if (to.name == 'noFound') {
+        this.noPath = false;
+      }
+    }
   },
   components: {
     Navbar: _static_Navbar_vue__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -23137,6 +23145,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.esm-bundler.js");
 
+var _hoisted_1 = {
+  key: 0
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Top = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Top");
 
@@ -23144,11 +23155,11 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_router_view = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("router-view");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("main", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("header", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Top), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Navbar, {
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("main", null, [$data.noPath ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("header", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Top), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Navbar, {
     isAuth: $data.sessionAuth
   }, null, 8
   /* PROPS */
-  , ["isAuth"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)]);
+  , ["isAuth"])])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_router_view)]);
 }
 
 /***/ }),
@@ -23179,7 +23190,7 @@ var _hoisted_2 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
     "class": "navbar-brand m-2",
     href: "#"
-  }, "Navbar", -1
+  }, "SG School", -1
   /* HOISTED */
   );
 });
@@ -23453,12 +23464,13 @@ var routes = [{
   component: function component() {
     return __webpack_require__.e(/*! import() */ "resources_js_path_Profile_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./path/Profile.vue */ "./resources/js/path/Profile.vue"));
   }
-} // {
-//   path: "/:catchAll(.*)",
-//   name: "noFound",
-//   component: () => import('@/components/NoPath.vue')
-// },
-];
+}, {
+  path: "/:catchAll(.*)",
+  name: "noFound",
+  component: function component() {
+    return __webpack_require__.e(/*! import() */ "resources_js_path_Nofound_vue").then(__webpack_require__.bind(__webpack_require__, /*! ./path/Nofound.vue */ "./resources/js/path/Nofound.vue"));
+  }
+}];
 
 function checkGuest(to, from, next) {
   return JSON.parse(sessionStorage.getItem('isAuth')) == false ? next() : next({
@@ -24027,7 +24039,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   actions: {
-    register: function register(stx, arg) {
+    register: function register(stx, get) {
       var _this = this;
 
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
@@ -24041,22 +24053,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 if (!_context.sent) {
-                  _context.next = 8;
+                  _context.next = 7;
                   break;
                 }
 
                 _context.next = 5;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/v1/register', [{
-                  email: arg.email,
-                  password: arg.password
+                  email: get.email,
+                  role: get.role,
+                  password: get.password
                 }]);
 
               case 5:
                 response = _context.sent;
-                console.log(response);
                 stx.commit("register", true);
 
-              case 8:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -57843,7 +57855,7 @@ var index = {
 /******/ 		// This function allow to reference async chunks
 /******/ 		__webpack_require__.u = (chunkId) => {
 /******/ 			// return url for filenames not based on template
-/******/ 			if ({"resources_js_path_Home_vue":1,"resources_js_auth_Login_vue":1,"resources_js_auth_Register_vue":1,"resources_js_path_Profile_vue":1}[chunkId]) return "js/" + chunkId + ".js";
+/******/ 			if ({"resources_js_path_Home_vue":1,"resources_js_auth_Login_vue":1,"resources_js_auth_Register_vue":1,"resources_js_path_Profile_vue":1,"resources_js_path_Nofound_vue":1}[chunkId]) return "js/" + chunkId + ".js";
 /******/ 			// return url for filenames based on template
 /******/ 			return undefined;
 /******/ 		};
