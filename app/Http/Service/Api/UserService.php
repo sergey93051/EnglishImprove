@@ -19,4 +19,11 @@ class UserService extends BaseService implements ServiceInterface {
        return $this->getRepository()->create($request->only(['email','password']));
     }
 
+    public function verifyAccount(string $hash)
+    {
+       return $this->getRepository()->verifyAccount($hash);
+    }
+
+
+
 }

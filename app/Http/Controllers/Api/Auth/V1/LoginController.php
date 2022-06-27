@@ -21,7 +21,9 @@ class LoginController extends Controller
         $user = Auth::user();
         $token=$user->createToken($user->email)->plainTextToken;
 
-        return response()->json(['success' => true ,'token' => $token ]);
+        return response()->json(['success' => true ,'token' => $token ,
+                'email_verified' => !!$user->email_verified_at
+            ]);
     }
 
 }

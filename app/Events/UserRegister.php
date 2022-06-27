@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Events;
+
+use Illuminate\Broadcasting\Channel;
+use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PresenceChannel;
+use Illuminate\Broadcasting\PrivateChannel;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Foundation\Events\Dispatchable;
+use Illuminate\Queue\SerializesModels;
+
+class UserRegister
+{
+    use Dispatchable, InteractsWithSockets, SerializesModels;
+
+    public $email;
+    public $hash;
+
+    /**
+     * Create a new event instance.
+     *
+     * @return void
+     */
+    public function __construct($email , $hash)
+    {
+       $this->email = $email;
+       $this->hash = $hash;
+
+    }
+}
