@@ -26,7 +26,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->configureRateLimiting();     
+        $this->configureRateLimiting();
 
         $this->routes(function () {
 
@@ -46,12 +46,12 @@ class RouteServiceProvider extends ServiceProvider
      * new route model
      *
      * @return void
-     */ 
+     */
 
     protected function apiV1(){
 
         Route::prefix('v1')
-            ->middleware('api')    
+            ->middleware('api')
             ->group(base_path('routes/api/v1.php'));
 
     }

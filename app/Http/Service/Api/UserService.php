@@ -9,21 +9,39 @@ class UserService extends BaseService implements ServiceInterface {
 
     protected static $instance;
 
-    public function getRepository()
+    /**
+     * @return UserRepository
+     */
+    public function getRepository():UserRepository
     {
         return UserRepository::getInstance();
     }
 
+    /**
+     * @param $request
+     * @return \App\Models\User
+     */
     public function register($request)
     {
        return $this->getRepository()->create($request->only(['email','password']));
     }
 
-    public function verifyAccount(string $hash)
+    /**
+     * @param string $hash
+     * @return void
+     */
+    public function verifyAccount(string $hash):void
     {
-       return $this->getRepository()->verifyAccount($hash);
+        $this->getRepository()->verifyAccount($hash);
     }
 
-
+    /***
+     * @param int $userId
+     * @return string
+     */
+    public function sendResetToken(int $userId)
+    {
+         return $this->getRepository()->createVerifyToken($userId);
+    }
 
 }

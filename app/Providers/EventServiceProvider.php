@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Events\UserRegister;
+use App\Events\VerifyAccountEvent;
 use App\Listeners\SendVerifyEmailListener;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
@@ -16,7 +17,12 @@ class EventServiceProvider extends ServiceProvider
     protected $listen = [
         UserRegister::class=>[
             SendVerifyEmailListener::class
+        ],
+
+        VerifyAccountEvent::class=>[
+            SendVerifyEmailListener::class
         ]
+
     ];
 
     /**

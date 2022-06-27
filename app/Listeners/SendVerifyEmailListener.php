@@ -25,10 +25,9 @@ class SendVerifyEmailListener
     /**
      * Handle the event.
      *
-     * @param  \App\Events\UserRegister  $event
      * @return void
      */
-    public function handle(UserRegister $event)
+    public function handle($event)
     {
         $email = $event->email;
         $hash = $event->hash;

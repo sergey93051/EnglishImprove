@@ -31,7 +31,7 @@ class RegisterRequest extends FormRequest
         return [
             'email'      => 'required|email|unique:users',
             'password'   => 'required|min:6|max:15',
-            'role'       => Rule::in(['student', 'teacher']),
+            'role'       => 'required|'.Rule::in(['student', 'teacher']),
         ];
     }
 
@@ -41,7 +41,7 @@ class RegisterRequest extends FormRequest
             'success'   => false,
             'message'   => 'Validation errors',
             'errors'      => $validator->errors()
-        ]),400);
+        ],422));
     }
 
     public function register()

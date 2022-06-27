@@ -4,6 +4,9 @@ namespace App\Http\Service\Api;
 
 class BaseService{
 
+    /**
+     * @return static
+     */
     public static function getInstance()
     {
         if(static::$instance===null  )
