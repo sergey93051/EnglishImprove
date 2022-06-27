@@ -23734,7 +23734,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context.prev = 0;
                 _context.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/v1/test');
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().get('/sanctum/csrf-cookie');
 
               case 3:
                 sanctum = _context.sent;
@@ -24053,22 +24053,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 2:
                 if (!_context.sent) {
-                  _context.next = 7;
+                  _context.next = 8;
                   break;
                 }
 
                 _context.next = 5;
-                return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/v1/register', [{
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().post('/v1/register', {
                   email: get.email,
                   role: get.role,
                   password: get.password
-                }]);
+                });
 
               case 5:
                 response = _context.sent;
+                console.log(response.data);
                 stx.commit("register", true);
 
-              case 7:
+              case 8:
               case "end":
                 return _context.stop();
             }

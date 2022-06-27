@@ -7,7 +7,7 @@ export default {
         async csrf(){ 
             
              try{
-                    const sanctum = await axios.get('/v1/test');  
+                    const sanctum = await axios.get('/sanctum/csrf-cookie');  
                       
                     if (sanctum.status == 204) {                   
                            return true;    

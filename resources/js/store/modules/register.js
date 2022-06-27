@@ -5,14 +5,14 @@ export default {
     actions: {        
         async register(stx,get){        
                if (await this.dispatch('csrf')) {   
-                         const response = await axios.post('/v1/register',[
+                         const response = await axios.post('/v1/register',
                              {
                                 email:get.email,
                                 role:get.role,
                                 password:get.password
                              }
-                         ]); 
-                      
+                         ); 
+                         console.log(response.data)
                          stx.commit("register",true)   
                  }
 
