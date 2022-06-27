@@ -250,7 +250,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* PROPS */
       , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ErrorMessage, {
         name: "password"
-      })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-outline mb-4\">\r\n                  <Field type=\"password\" id=\"form3Example4cdg\" class=\"form-control form-control-lg\" />\r\n                  <label class=\"form-label\" for=\"form3Example4cdg\">Repeat your password</label>\r\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-check d-flex justify-content-center mb-5\">\r\n                  <input class=\"form-check-input me-2\" type=\"checkbox\" value=\"\" id=\"form2Example3cg\" />\r\n                  <label class=\"form-check-label\" for=\"form2Example3g\">\r\n                    I agree all statements in <a href=\"#!\" class=\"text-body\"><u>Terms of service</u></a>\r\n                  </label>\r\n                </div> "), _hoisted_20, _hoisted_21];
+      })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-outline mb-4\">\n                  <Field type=\"password\" id=\"form3Example4cdg\" class=\"form-control form-control-lg\" />\n                  <label class=\"form-label\" for=\"form3Example4cdg\">Repeat your password</label>\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-check d-flex justify-content-center mb-5\">\n                  <input class=\"form-check-input me-2\" type=\"checkbox\" value=\"\" id=\"form2Example3cg\" />\n                  <label class=\"form-check-label\" for=\"form2Example3g\">\n                    I agree all statements in <a href=\"#!\" class=\"text-body\"><u>Terms of service</u></a>\n                  </label>\n                </div> "), _hoisted_20, _hoisted_21];
     }),
     _: 1
     /* STABLE */
@@ -279,7 +279,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.emailError>span[data-v-d7dc2e88],.passwordError>span[data-v-d7dc2e88] {\r\n    color: red;\n}\n.card[data-v-d7dc2e88]{\r\n    border-radius: 15px;\r\n    margin-top: 15px;\n}\n.gradient-custom-3[data-v-d7dc2e88] {\r\n/* fallback for old browsers */\r\nbackground: #84fab0;\r\n\r\n/* Chrome 10-25, Safari 5.1-6 */\r\n\r\n/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */\r\nbackground: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))\n}\n.gradient-custom-4[data-v-d7dc2e88] {\r\n/* fallback for old browsers */\r\nbackground: #84fab0;\r\n\r\n/* Chrome 10-25, Safari 5.1-6 */\r\n\r\n/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */\r\nbackground: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))\n}\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.emailError>span[data-v-d7dc2e88],.passwordError>span[data-v-d7dc2e88] {\n    color: red;\n}\n.card[data-v-d7dc2e88]{\n    border-radius: 15px;\n    margin-top: 15px;\n}\n.gradient-custom-3[data-v-d7dc2e88] {\n/* fallback for old browsers */\nbackground: #84fab0;\n\n/* Chrome 10-25, Safari 5.1-6 */\n\n/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */\nbackground: linear-gradient(to right, rgba(132, 250, 176, 0.5), rgba(143, 211, 244, 0.5))\n}\n.gradient-custom-4[data-v-d7dc2e88] {\n/* fallback for old browsers */\nbackground: #84fab0;\n\n/* Chrome 10-25, Safari 5.1-6 */\n\n/* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */\nbackground: linear-gradient(to right, rgba(132, 250, 176, 1), rgba(143, 211, 244, 1))\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -9020,7 +9020,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Register_vue_vue_type_template_id_d7dc2e88_scoped_true__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Register.vue?vue&type=template&id=d7dc2e88&scoped=true */ "./resources/js/auth/Register.vue?vue&type=template&id=d7dc2e88&scoped=true");
 /* harmony import */ var _Register_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Register.vue?vue&type=script&lang=js */ "./resources/js/auth/Register.vue?vue&type=script&lang=js");
 /* harmony import */ var _Register_vue_vue_type_style_index_0_id_d7dc2e88_scoped_true_lang_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Register.vue?vue&type=style&index=0&id=d7dc2e88&scoped=true&lang=css */ "./resources/js/auth/Register.vue?vue&type=style&index=0&id=d7dc2e88&scoped=true&lang=css");
-/* harmony import */ var C_xampp1_htdocs_improveEnglish_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
+/* harmony import */ var _home_softcode_Desktop_project2_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./node_modules/vue-loader/dist/exportHelper.js */ "./node_modules/vue-loader/dist/exportHelper.js");
 
 
 
@@ -9028,7 +9028,7 @@ __webpack_require__.r(__webpack_exports__);
 ;
 
 
-const __exports__ = /*#__PURE__*/(0,C_xampp1_htdocs_improveEnglish_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Register_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Register_vue_vue_type_template_id_d7dc2e88_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-d7dc2e88"],['__file',"resources/js/auth/Register.vue"]])
+const __exports__ = /*#__PURE__*/(0,_home_softcode_Desktop_project2_node_modules_vue_loader_dist_exportHelper_js__WEBPACK_IMPORTED_MODULE_3__["default"])(_Register_vue_vue_type_script_lang_js__WEBPACK_IMPORTED_MODULE_1__["default"], [['render',_Register_vue_vue_type_template_id_d7dc2e88_scoped_true__WEBPACK_IMPORTED_MODULE_0__.render],['__scopeId',"data-v-d7dc2e88"],['__file',"resources/js/auth/Register.vue"]])
 /* hot reload */
 if (false) {}
 
