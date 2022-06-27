@@ -22,13 +22,14 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       email: "",
-      password: ""
+      password: "",
+      chooseRole: ""
     }; //  console.log(this.$store.dispatch('register'))
     //  this.$store.dispatch('')
     //  defineRule('required', required);
     //  defineRule('email', email);
     //  defineRule('min', min);
-    //      const simpleSchema = { 
+    //   const simpleSchema = { 
     //           password: 'required|min:8',
     // };
     // return {
@@ -41,7 +42,7 @@ __webpack_require__.r(__webpack_exports__);
     ErrorMessage: vee_validate__WEBPACK_IMPORTED_MODULE_1__.ErrorMessage
   },
   computed: {
-    schema: function schema() {
+    schemaRegister: function schemaRegister() {
       return yup__WEBPACK_IMPORTED_MODULE_0__.object({
         email: yup__WEBPACK_IMPORTED_MODULE_0__.string().email().required(),
         password: yup__WEBPACK_IMPORTED_MODULE_0__.string().min(6).required()
@@ -56,9 +57,9 @@ __webpack_require__.r(__webpack_exports__);
     onRegister: function onRegister() {
       this.$store.dispatch('register', {
         email: this.email,
+        role: this.chooseRole,
         password: this.password
       });
-      console.log('Submitting :(');
     }
   }
 });
@@ -123,7 +124,7 @@ var _hoisted_9 = {
 var _hoisted_10 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "class": "form-label",
-    "for": "form3Example3cg"
+    "for": "email"
   }, "Your Email", -1
   /* HOISTED */
   );
@@ -139,17 +140,48 @@ var _hoisted_12 = {
 var _hoisted_13 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
     "class": "form-label",
-    "for": "form3Example4cg"
+    "for": "chooseRole"
+  }, "Choose Your Roles", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_14 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "Teacher"
+  }, "Teacher", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+    value: "Student",
+    selected: ""
+  }, "Student", -1
+  /* HOISTED */
+  );
+});
+
+var _hoisted_16 = [_hoisted_14, _hoisted_15];
+var _hoisted_17 = {
+  "class": "form-outline mb-4"
+};
+
+var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
+  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("label", {
+    "class": "form-label",
+    "for": "password"
   }, "Password", -1
   /* HOISTED */
   );
 });
 
-var _hoisted_14 = {
+var _hoisted_19 = {
   "class": "passwordError"
 };
 
-var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_20 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "d-flex justify-content-center"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
@@ -159,7 +191,7 @@ var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_21 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", {
     "class": "text-center text-muted mt-5 mb-0"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)("Have already an account? "), /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
@@ -179,12 +211,12 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_3, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_7, [_hoisted_8, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Form, {
     onSubmit: $options.onRegister,
-    "validation-schema": $options.schema
+    "validation-schema": $options.schemaRegister
   }, {
     "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
       return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_9, [_hoisted_10, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Field, {
         type: "email",
-        id: "form3Example3cg",
+        id: "email",
         modelValue: $data.email,
         "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
           return $data.email = $event;
@@ -195,20 +227,30 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* PROPS */
       , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_11, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ErrorMessage, {
         name: "email"
-      })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Field, {
-        type: "password",
-        id: "form3Example4cg",
-        modelValue: $data.password,
+      })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_12, [_hoisted_13, (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+        name: "chooseRole",
+        "class": "form-control",
+        "data-style": "btn-primary",
         "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+          return $data.chooseRole = $event;
+        }),
+        id: "chooseRole"
+      }, _hoisted_16, 512
+      /* NEED_PATCH */
+      ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.chooseRole]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_17, [_hoisted_18, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Field, {
+        type: "password",
+        id: "password",
+        modelValue: $data.password,
+        "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
           return $data.password = $event;
         }),
         "class": "form-control form-control-lg",
         name: "password"
       }, null, 8
       /* PROPS */
-      , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ErrorMessage, {
+      , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_19, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ErrorMessage, {
         name: "password"
-      })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-outline mb-4\">\r\n                  <Field type=\"password\" id=\"form3Example4cdg\" class=\"form-control form-control-lg\" />\r\n                  <label class=\"form-label\" for=\"form3Example4cdg\">Repeat your password</label>\r\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-check d-flex justify-content-center mb-5\">\r\n                  <input class=\"form-check-input me-2\" type=\"checkbox\" value=\"\" id=\"form2Example3cg\" />\r\n                  <label class=\"form-check-label\" for=\"form2Example3g\">\r\n                    I agree all statements in <a href=\"#!\" class=\"text-body\"><u>Terms of service</u></a>\r\n                  </label>\r\n                </div> "), _hoisted_15, _hoisted_16];
+      })])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-outline mb-4\">\r\n                  <Field type=\"password\" id=\"form3Example4cdg\" class=\"form-control form-control-lg\" />\r\n                  <label class=\"form-label\" for=\"form3Example4cdg\">Repeat your password</label>\r\n                </div> "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" <div class=\"form-check d-flex justify-content-center mb-5\">\r\n                  <input class=\"form-check-input me-2\" type=\"checkbox\" value=\"\" id=\"form2Example3cg\" />\r\n                  <label class=\"form-check-label\" for=\"form2Example3g\">\r\n                    I agree all statements in <a href=\"#!\" class=\"text-body\"><u>Terms of service</u></a>\r\n                  </label>\r\n                </div> "), _hoisted_20, _hoisted_21];
     }),
     _: 1
     /* STABLE */

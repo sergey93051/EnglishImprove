@@ -1,8 +1,8 @@
 <template>
     <main>
-         <header>
+         <header v-if="noPath">
               <Top />  
-              <Navbar />    
+              <Navbar :isAuth='sessionAuth' />    
          </header>
          <router-view  />
     </main>
@@ -15,15 +15,23 @@ export default {
 
  data(){
    return {
-        sessionAuth:''
+        noPath:true,
+        sessionAuth:false
    }
  },
+  watch: {
+  '$route'(to, from){   
+        if (to.name=='noFound') {
+             this.noPath = false
+        } 
+   }
+  },
  components:{
        Navbar,
        Top 
  },
  created() {
-     this.sessionAuth = JSON.parse(sessionStorage.getItem('isAuth'));
+    //  this.sessionAuth = JSON.parse(sessionStorage.getItem('isAuth'));
  },
  
 };

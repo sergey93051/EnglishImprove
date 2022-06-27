@@ -8,15 +8,22 @@
           <div class="card">
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Create an account</h2>
-              <Form @submit="onRegister" :validation-schema="schema" >
+              <Form @submit="onRegister" :validation-schema="schemaRegister" >
                 <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example3cg">Your Email</label>
-                   <Field type="email" id="form3Example3cg" v-model="email" class="form-control form-control-lg" name="email" />                 
+                  <label class="form-label" for="email">Your Email</label>
+                   <Field type="email" id="email" v-model="email" class="form-control form-control-lg" name="email" />                 
                    <p class="emailError"><ErrorMessage name="email" /></p>
                 </div>
+               <div class="form-outline mb-4">
+                 <label class="form-label" for="chooseRole">Choose Your Roles</label>
+                <select name="chooseRole" class="form-control" data-style="btn-primary" v-model="chooseRole" id="chooseRole">
+                     <option value="Teacher">Teacher</option>
+                     <option value="Student" selected>Student</option>
+                </select>
+              </div>
                 <div class="form-outline mb-4">
-                   <label class="form-label" for="form3Example4cg">Password</label>
-                   <Field type="password" id="form3Example4cg" v-model="password"  class="form-control form-control-lg"  name="password" />   
+                   <label class="form-label" for="password">Password</label>
+                   <Field type="password" id="password" v-model="password"  class="form-control form-control-lg"  name="password" />   
                    <p class="passwordError"><ErrorMessage name="password" /></p>
                 </div>
                 <!-- <div class="form-outline mb-4">
@@ -45,18 +52,16 @@
 </template>
 <script>
 import { mapActions } from 'vuex';
-import { Form,Field,ErrorMessage  } from 'vee-validate';
+import { Form,Field,ErrorMessage} from 'vee-validate';
 import * as yup from 'yup';
 // import { required, email, min } from '@vee-validate/rules';
 // import { defineRule } from 'vee-validate';
-
-
-
 export default {  
       data() {
            return{
                email:"",
-               password:""
+               password:"",
+               chooseRole:""
            }
       
         //  console.log(this.$store.dispatch('register'))
@@ -64,13 +69,13 @@ export default {
         //  defineRule('required', required);
         //  defineRule('email', email);
         //  defineRule('min', min);
-    //      const simpleSchema = { 
-    //           password: 'required|min:8',
+        //   const simpleSchema = { 
+       //           password: 'required|min:8',
      
-    // };
-    // return {
-    //   simpleSchema,
-    // };
+       // };
+       // return {
+       //   simpleSchema,
+      // };
   },
 
 components: {
@@ -79,7 +84,7 @@ components: {
     ErrorMessage
   },
   computed:{
-   schema() {
+   schemaRegister() {
       return yup.object({
            email:yup.string().email().required(),
            password: yup.string().min(6).required(),
@@ -93,16 +98,15 @@ components: {
        console.log(this.$store.getters.getData)
   },
   methods: {
-    onRegister() {        
+    onRegister() {  
       this.$store.dispatch('register',{
           email:this.email,
+          role:this.chooseRole,
           password:this.password
       });
-      console.log('Submitting :(');
+
     },
-  },
-
-
+  }, 
 }
 </script>
 <style scoped>

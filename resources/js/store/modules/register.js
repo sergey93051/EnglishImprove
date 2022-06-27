@@ -3,16 +3,16 @@ import axios from 'axios'
 export default { 
     
     actions: {        
-        async register(stx,arg){ 
-  
+        async register(stx,get){        
                if (await this.dispatch('csrf')) {   
                          const response = await axios.post('/v1/register',[
                              {
-                                email:arg.email,
-                                password:arg.password
+                                email:get.email,
+                                role:get.role,
+                                password:get.password
                              }
                          ]); 
-                         console.log(response)
+                      
                          stx.commit("register",true)   
                  }
 

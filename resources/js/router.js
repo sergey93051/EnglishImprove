@@ -2,26 +2,32 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
     {
-
-     name: "login",
-     path: '/login',
-     component: () => import('./auth/Login.vue'),
-     // beforeEnter:checkGuest
-
+       name:"home",
+       path:"/",
+       component:() => import('./path/Home.vue')
+    },  
+    {
+       name: "login",
+       path: '/login',
+       component: () => import('./auth/Login.vue'),
+       // beforeEnter:checkGuest
     },
     {
-
       name: "register",
       path: '/register',
-      component: () => import('./auth/Register.vue'),
- 
+      component: () => import('./auth/Register.vue'), 
+    },
+    {
+       name: "profile",
+       path: '/profile',
+       component: () => import('./path/Profile.vue'), 
     },
 
-  // {
-  //   path: "/:catchAll(.*)",
-  //   name: "noFound",
-  //   component: () => import('@/components/NoPath.vue')
-  // },
+  {
+    path: "/:catchAll(.*)",
+    name: "noFound",
+    component: () => import('./path/Nofound.vue')
+  },
 ]
 
 function checkGuest(to, from, next){
