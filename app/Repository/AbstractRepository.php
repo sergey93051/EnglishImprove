@@ -2,9 +2,12 @@
 
 namespace App\Repository;
 
+use App\Models\UserInformation;
+
 abstract class AbstractRepository{
 
     protected $model;
+    protected static $instance;
 
     public function __construct()
     {
@@ -18,6 +21,9 @@ abstract class AbstractRepository{
        return clone $this->model;
    }
 
+    /**
+     * @return static
+     */
     public static function getInstance()
     {
         if(static::$instance===null  )
