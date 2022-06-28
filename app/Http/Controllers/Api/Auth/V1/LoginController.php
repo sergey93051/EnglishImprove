@@ -15,7 +15,7 @@ class LoginController extends Controller
 
         if(!$isLogged)
         {
-            response()->json(['success' => false]);
+            return response()->json(['success' => false],400);
         }
 
         $user = Auth::user();
