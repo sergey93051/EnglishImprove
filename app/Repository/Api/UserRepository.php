@@ -30,7 +30,6 @@ class UserRepository extends AbstractRepository
     public function create(array $params):User
     {
         $params['email_verify_hash'] = getRandomString(40);
-
         return $this->startCondition()::create($params);
     }
 

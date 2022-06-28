@@ -17,8 +17,8 @@
                <div class="form-outline mb-4">
                  <label class="form-label" for="chooseRole">Choose Your Roles</label>
                 <select name="chooseRole" class="form-control" data-style="btn-primary" v-model="chooseRole" id="chooseRole">
-                     <option value="Teacher">Teacher</option>
-                     <option value="Student" selected>Student</option>
+                     <option value="teacher">Teacher</option>
+                     <option value="student" selected>Student</option>
                 </select>
               </div>
                 <div class="form-outline mb-4">
@@ -85,10 +85,10 @@ components: {
   },
   computed:{
    schemaRegister() {
-      return yup.object({
-           email:yup.string().email().required(),
-           password: yup.string().min(6).required(),
-      });
+      // return yup.object({
+      //      email:yup.string().email().required(),
+      //      password: yup.string().min(6).required(),
+      // });
     },
   },
   beforeCreate(){
