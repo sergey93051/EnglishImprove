@@ -9,6 +9,10 @@ use Illuminate\Support\Facades\Auth;
 
 class VerifyAccountController extends Controller{
 
+    /**
+     * @param $hash
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     public function verifyAccount($hash)
     {
         UserService::getInstance()->verifyAccount($hash);
@@ -16,6 +20,9 @@ class VerifyAccountController extends Controller{
         return redirect('/login');
     }
 
+    /**
+     * @return bool[]
+     */
     public function sendResetToken()
     {
         $id = Auth::user()->id;
@@ -26,5 +33,12 @@ class VerifyAccountController extends Controller{
         return ['success' => true];
     }
 
+    /**
+     * @return bool[]
+     */
+    public function checkVerified()
+    {
+        return ['email_verified' => !!Auth::user()->email_verified_at];
+    }
 
 }

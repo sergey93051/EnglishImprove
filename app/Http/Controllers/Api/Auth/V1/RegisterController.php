@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\Auth\V1;
 use App\Events\UserRegister;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Auth\V1\RegisterRequest;
+use App\Http\Service\Api\UserInformationService;
 use App\Jobs\VerifyAccountJob;
 
 class RegisterController extends Controller
@@ -14,6 +15,8 @@ class RegisterController extends Controller
         try {
             $user = $request->register();
             $token = $user->createToken($request->email)->plainTextToken;
+
+            UserInformationService::getInstance()->createEmptyUserInformation($user->id);
 
         }catch (\Exception $exception){
             return response()->json(['error' => $exception->getMessage() ,
