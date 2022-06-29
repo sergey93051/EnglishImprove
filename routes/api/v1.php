@@ -1,6 +1,6 @@
 <?php
 
-use \Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;
 
 Route::post('register',\App\Http\Controllers\Api\Auth\V1\RegisterController::class);
 Route::post('login',\App\Http\Controllers\Api\Auth\V1\LoginController::class);
@@ -11,11 +11,13 @@ Route::get('verify_account/{hash}',
     ->name('verify_account');
 
 Route::middleware('auth:sanctum')->group(function (){
+    Route::post('logout',\App\Http\Controllers\Api\Auth\V1\LogoutController::class);
+
     Route::post('verify_account' ,[\App\Http\Controllers\Api\Auth\V1\VerifyAccountController::class,
         'sendResetToken']);
-    Route::get('get-information',[\App\Http\Controllers\Api\Auth\V1\UserInformationController::class,'get']);
+    Route::get('get-information',[\App\Http\Controllers\Api\UserInformationController::class,'get']);
 
-    Route::put('update-information',[\App\Http\Controllers\Api\Auth\V1\UserInformationController::class,'updatePersonalInformation']);
+    Route::put('update-information',[\App\Http\Controllers\Api\UserInformationController::class,'updatePersonalInformation']);
 
     Route::get('check-verified',[\App\Http\Controllers\Api\Auth\V1\VerifyAccountController::class,'checkVerified']);
 
