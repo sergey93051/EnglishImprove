@@ -26,6 +26,7 @@ class UpdateUserInformationRequest extends FormRequest
     public function rules()
     {
         return [
+            'name'         => 'nullable|string|min:3|max:15',
             'address'      => 'nullable|string|min:3|max:15',
             'phone'        => 'nullable|string|min:6|max:15',
             'phone_code'   => 'nullable|string|min:2|max:5',

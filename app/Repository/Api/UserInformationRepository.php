@@ -41,7 +41,7 @@ class UserInformationRepository extends AbstractRepository
     {
         $userInformation = $this->getInformationByUserId($userId);
         $userInformation->update($request->only([
-            'address','phone_code','phone','age'
+            'address','phone_code','phone','age','name'
         ]));
 
         return $this->getInformationByUserId($userId);

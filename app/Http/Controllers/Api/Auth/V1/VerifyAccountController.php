@@ -38,7 +38,7 @@ class VerifyAccountController extends Controller{
      */
     public function checkVerified()
     {
-        return ['email_verified' => !!Auth::user()->email_verified_at];
+        return ['email_verified' => !!Auth::user()->email_verified_at , 'email' => Auth::user()->email];
     }
 
 }
