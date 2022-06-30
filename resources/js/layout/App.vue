@@ -1,10 +1,10 @@
 <template>
     <main>
          <header v-if="noPath">
-              <Top />  
-              <Navbar :isAuth='sessionAuth' />    
+              <Top :isEmailVerify='isEmailVerify' />  
+              <Navbar  :isAuth='sessionAuth' />    
          </header>
-         <router-view  />
+         <router-view :isEmailVerify='isEmailVerify' />
     </main>
 </template>
 
@@ -12,9 +12,10 @@
 import Navbar from '../static/Navbar.vue'
 import Top from '../static/Top.vue'
 export default {
-
+ 
  data(){
    return {
+        isEmailVerify:false,
         noPath:true,
         sessionAuth:false
    }

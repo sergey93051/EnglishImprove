@@ -19,9 +19,26 @@
 				    </div>
 			    </div>
 		    </div>
+			  <AlertEV v-if="!isEmailVerify" />		
 		  </div>
+
     </div>
 </template>
+<script>
+import AlertEV from "./AlertEV.vue";
+export default {
+	props: ['isEmailVerify'],
+	data() {
+		
+	},
+	components:{
+        AlertEV
+	},
+	mounted(){
+	
+	}
+}
+</script>
 <style scoped>
 .bg-primary {
     background: #1eaaf1 !important;

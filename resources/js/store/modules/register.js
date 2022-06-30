@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+
 export default { 
     
     actions: {        
@@ -12,43 +13,41 @@ export default {
                                role:get.role,
                                password:get.password
                             }
-                        ); 
-                         console.log(response)
-                        stx.commit("register",true) 
+                        );                     
+                        stx.commit('registerStatus',response.status);                         
+                          
                         }
                         catch(err){
                             if (err.response.status == 422) {                                     
                                    if (err.response.data.errors['email']) {                                   
                                        stx.commit("registerError",err.response.data.errors['email'][0]);
-                                   }                           
+                                   }                        
                           
                             }else{
-                                console.error("unconnected");
+                                console.error("unconnected"+err);
                             }             
                           }  
-                 }
-
-                 console.log(await this.dispatch('csrf'))
+                 }              
          }
     },
     mutations: {
-          register(state,statuscode){
-               state.statuscode = statuscode
+        registerStatus(state,registerStatus){
+               state.registerStatus = registerStatus
           },
-          registerError(state,error){
-              state.statuscode = error
+          registerError(state,registerError){
+              state.registerError = registerError
           }
     },
     state:{
-        statuscode:"",
-        error:[]
+        registerStatus:null,
+        registerError:null
     },
     getters:{
-        getRegData:function(state){    
-            return state.statuscode
+        getRegSuccess:function(state){ 
+           return state.registerStatus;                
         },
         getRegError(state){
-            return state.error;
+            return state.registerError;
         }
 
     },

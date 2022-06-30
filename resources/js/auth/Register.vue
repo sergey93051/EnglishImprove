@@ -8,7 +8,8 @@
           <div class="card">
             <div class="card-body p-5">
               <h2 class="text-uppercase text-center mb-5">Create an account</h2>
-              <Form @submit="onRegister" :validation-schema="schemaRegister" >
+               <div v-if='getRegError' class="alert alert-danger" role="alert">{{getRegError}}</div>
+              <Form @submit="onRegister" :validation-schema="schemaRegister">
                 <div class="form-outline mb-4">
                   <label class="form-label" for="email">Your Email</label>
                    <Field type="email" id="email" v-model="email" class="form-control form-control-lg" name="email" />                 
@@ -51,7 +52,7 @@
 </div>
 </template>
 <script>
-import { mapActions } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import { Form,Field,ErrorMessage} from 'vee-validate';
 import * as yup from 'yup';
 // import { required, email, min } from '@vee-validate/rules';
@@ -84,27 +85,45 @@ components: {
     ErrorMessage
   },
   computed:{
+
+        ...mapGetters(['getRegError','getRegSuccess']),
+      //  registerError(){
+      //      return this.$store.getters.getRegError;
+      //  },
+      // registerError:{
+              //  get:function(){
+              //     return this.$store.getters.getRegError();
+              //  },
+              //  set:function(value){
+              //    return !!this.$store.getters.getRegError();
+              //  }
+
+     
+
+
    schemaRegister() {
-      // return yup.object({
-      //      email:yup.string().email().required(),
-      //      password: yup.string().min(6).required(),
-      // });
+      return yup.object({
+           email:yup.string().email().required(),
+           password: yup.string().min(6).required(),
+      });
     },
   },
   beforeCreate(){
         
   },
-  created(){    
-       console.log(this.$store.getters.getData)
+  mounted(){    
+
   },
   methods: {
-    onRegister() {  
-      this.$store.dispatch('register',{
+   async onRegister() {  
+      this.getRegError = '';
+      await this.$store.dispatch('register',{
           email:this.email,
           role:this.chooseRole,
           password:this.password
-      });
+       }); 
 
+       this.getRegSuccess==201 ? this.$router.push({name:"home"}):false;  
     },
   }, 
 }
