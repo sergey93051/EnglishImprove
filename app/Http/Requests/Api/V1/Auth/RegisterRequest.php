@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Http\Requests\Api\Auth\V1;
+namespace App\Http\Requests\Api\V1\Auth;
 
-use App\Http\Service\Api\RoleService;
-use App\Http\Service\Api\UserService;
+use App\Http\Service\Api\V1\RoleService;
+use App\Http\Service\Api\V1\UserService;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
@@ -29,7 +29,7 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'      => 'required|email|unique:users',
+            'email'      => 'required|email|unique:user_emails',
             'password'   => 'required|min:6|max:15',
             'role'       => 'required|'.Rule::in(['student', 'teacher']),
         ];
@@ -46,12 +46,12 @@ class RegisterRequest extends FormRequest
 
     public function register()
     {
-            $user = UserService::getInstance()->register($this);
-            $role = $this->role ?? 'student' ;
+        $user = UserService::getInstance()->register($this);
+        $role = $this->role ?? 'student' ;
 
-            RoleService::getInstance()->create($user->id , $role);
+        RoleService::getInstance()->create($user->id , $role);
 
-            return $user;
+        return $user;
 
     }
 }

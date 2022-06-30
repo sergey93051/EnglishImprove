@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\V1;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Auth\V1\UpdateUserInformationRequest;
-use App\Http\Service\Api\UserInformationService;
+use App\Http\Requests\Api\V1\Auth\UpdateUserInformationRequest;
+use App\Http\Service\Api\V1\UserInformationService;
 use Illuminate\Support\Facades\Auth;
 
 class UserInformationController extends Controller{

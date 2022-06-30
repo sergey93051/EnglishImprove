@@ -1,18 +1,15 @@
 <?php
 
-namespace App\Http\Service\Api;
+namespace App\Http\Service\Api\V1;
 
 use App\Http\Service\ServiceInterface;
-use App\Repository\Api\UserInformationRepository;
+use App\Repository\Api\V1\UserInformationRepository;
 
 class UserInformationService implements ServiceInterface
 {
     private static $instance;
 
-    /**
-     * @return UserInformationService
-     */
-    public static function getInstance():UserInformationService
+    public static function getInstance()
     {
         if(self::$instance=== null)
         {
@@ -21,10 +18,7 @@ class UserInformationService implements ServiceInterface
         return self::$instance;
     }
 
-    /**
-     * @return UserInformationRepository
-     */
-    public function getRepository():UserInformationRepository
+    public function getRepository()
     {
         return UserInformationRepository::getInstance();
     }

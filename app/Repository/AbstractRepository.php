@@ -7,7 +7,7 @@ use App\Models\UserInformation;
 abstract class AbstractRepository{
 
     protected $model;
-    protected static $instance;
+    private static $instance;
 
     public function __construct()
     {
@@ -20,18 +20,4 @@ abstract class AbstractRepository{
    {
        return clone $this->model;
    }
-
-    /**
-     * @return static
-     */
-    public static function getInstance()
-    {
-        if(static::$instance===null  )
-        {
-            $class = get_called_class();
-            static::$instance = new $class();
-        }
-
-        return static::$instance;
-    }
 }
