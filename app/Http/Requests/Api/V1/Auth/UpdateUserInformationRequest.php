@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Requests\Api\Auth\V1;
+namespace App\Http\Requests\Api\V1\Auth;
 
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
-class LoginRequest extends FormRequest
+class UpdateUserInformationRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,8 +26,11 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'     => 'required|exists:users',
-            'password'  => 'required|min:1'
+            'name'         => 'nullable|string|min:3|max:15',
+            'address'      => 'nullable|string|min:3|max:15',
+            'phone'        => 'nullable|string|min:6|max:15',
+            'phone_code'   => 'nullable|string|min:2|max:5',
+            'age'          => 'nullable|numeric|min:14|max:99',
         ];
     }
 
@@ -37,6 +40,6 @@ class LoginRequest extends FormRequest
             'success'   => false,
             'message'   => 'Validation errors',
             'errors'      => $validator->errors()
-        ]),400);
+        ],422));
     }
 }

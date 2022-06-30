@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api\Auth\V1;
+namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Events\VerifyAccountEvent;
 use App\Http\Controllers\Controller;
-use App\Http\Service\Api\UserService;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Service\Api\V1\UserEmailService;
 
 class VerifyAccountController extends Controller{
 
@@ -15,7 +14,7 @@ class VerifyAccountController extends Controller{
      */
     public function verifyAccount($hash)
     {
-        UserService::getInstance()->verifyAccount($hash);
+        UserEmailService::getInstance()->verifyAccount($hash);
 
         return redirect('/login');
     }
@@ -25,10 +24,11 @@ class VerifyAccountController extends Controller{
      */
     public function sendResetToken()
     {
-        $id = Auth::user()->id;
-        $hash = UserService::getInstance()->sendResetToken($id);
+        $email = request()->user()->currentAccessToken()->name;
 
-        event(new VerifyAccountEvent(Auth::user()->email,$hash));
+        $hash = UserEmailService::getInstance()->sendResetToken($email);
+
+        event(new VerifyAccountEvent($email,$hash));
 
         return ['success' => true];
     }
@@ -38,7 +38,10 @@ class VerifyAccountController extends Controller{
      */
     public function checkVerified()
     {
-        return ['email_verified' => !!Auth::user()->email_verified_at];
+        $email = request()->user()->currentAccessToken()->name;
+        $checkVerified = !!UserEmailService::getInstance()->getByEmail($email)->email_verified_at;
+
+        return ['email_verified' => $checkVerified , 'email' => $email];
     }
 
 }

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\Auth\V1;
+namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Events\UserRegister;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Api\Auth\V1\RegisterRequest;
-use App\Http\Service\Api\UserInformationService;
-use App\Jobs\VerifyAccountJob;
+use App\Http\Requests\Api\V1\Auth\RegisterRequest;
+use App\Http\Service\Api\V1\UserInformationService;
+use App\Models\UserEmail;
 
 class RegisterController extends Controller
 {
@@ -14,7 +14,7 @@ class RegisterController extends Controller
     {
         try {
             $user = $request->register();
-            $token = $user->createToken($request->email)->plainTextToken;
+            $token = $user->createToken($user->email)->plainTextToken;
 
             UserInformationService::getInstance()->createEmptyUserInformation($user->id);
 

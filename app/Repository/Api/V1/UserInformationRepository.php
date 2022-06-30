@@ -1,12 +1,26 @@
 <?php
 
-namespace App\Repository\Api;
+namespace App\Repository\Api\V1;
 
 use App\Models\UserInformation;
 use App\Repository\AbstractRepository;
 
 class UserInformationRepository extends AbstractRepository
 {
+
+    private static $instance;
+
+    /**
+     * @return UserInformationRepository
+     */
+    public static function getInstance()
+    {
+        if(self::$instance === null)
+        {
+            self::$instance = new self();
+        }
+        return self::$instance;
+    }
 
     /**
      * @return string
@@ -41,7 +55,7 @@ class UserInformationRepository extends AbstractRepository
     {
         $userInformation = $this->getInformationByUserId($userId);
         $userInformation->update($request->only([
-            'address','phone_code','phone','age'
+            'address','phone_code','phone','age','name'
         ]));
 
         return $this->getInformationByUserId($userId);

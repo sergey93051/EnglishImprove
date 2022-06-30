@@ -1,12 +1,15 @@
 <?php
 
-namespace App\Http\Requests\Api\Auth\V1;
+namespace App\Http\Requests\Api\V1\Auth;
 
+use App\Http\Service\Api\V1\RoleService;
+use App\Http\Service\Api\V1\UserService;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\Exceptions\HttpResponseException;
+use Illuminate\Validation\Rule;
 
-class UpdateUserInformationRequest extends FormRequest
+class RegisterRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,10 +29,9 @@ class UpdateUserInformationRequest extends FormRequest
     public function rules()
     {
         return [
-            'address'      => 'nullable|string|min:3|max:15',
-            'phone'        => 'nullable|string|min:6|max:15',
-            'phone_code'   => 'nullable|string|min:2|max:5',
-            'age'          => 'nullable|numeric|min:14|max:99',
+            'email'      => 'required|email|unique:user_emails',
+            'password'   => 'required|min:6|max:15',
+            'role'       => 'required|'.Rule::in(['student', 'teacher']),
         ];
     }
 
@@ -40,5 +42,16 @@ class UpdateUserInformationRequest extends FormRequest
             'message'   => 'Validation errors',
             'errors'      => $validator->errors()
         ],422));
+    }
+
+    public function register()
+    {
+        $user = UserService::getInstance()->register($this);
+        $role = $this->role ?? 'student' ;
+
+        RoleService::getInstance()->create($user->id , $role);
+
+        return $user;
+
     }
 }
