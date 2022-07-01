@@ -94,7 +94,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 3:
-                _this.getRegSuccess == 201 ? _this.$router.push({
+                _this.getRegSuccess ? _this.$router.push({
                   name: "home"
                 }) : false;
 

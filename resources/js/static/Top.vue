@@ -27,9 +27,10 @@
 <script>
 import AlertEV from "./AlertEV.vue";
 export default {
-	props: ['isEmailVerify'],
-	data() {
-		
+	data() {  
+		 return {
+			isEmailVerify:sessionStorage.getItem('email_verified')
+		 }
 	},
 	components:{
         AlertEV

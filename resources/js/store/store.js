@@ -7,7 +7,8 @@ import cart from "./modules/cart"
 import auth from "./modules/auth"
 import register  from './modules/register'
 import csrf from './modules/csrf'
-
+import logout from './modules/logout'
+import login from './modules/login'
 
 export default new Vuex.Store({
 
@@ -19,6 +20,8 @@ export default new Vuex.Store({
         cart,
         auth,
         register,
-        csrf
+        csrf,
+        logout,
+        login
      }
 })

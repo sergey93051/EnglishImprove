@@ -29,7 +29,20 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     onLogin: function onLogin() {
-      console.log("login");
+      var _this = this;
+
+      this.$store.dispatch('login', {
+        email: this.email,
+        password: this.password
+      }).then(function (responseSuccess) {
+        _this.$router.push({
+          name: "home"
+        });
+
+        responseSuccess ? _this.$router.push({
+          name: "home"
+        }) : false;
+      });
     }
   },
   computed: {
@@ -151,14 +164,6 @@ var _hoisted_15 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_16 = /*#__PURE__*/_withScopeId(function () {
-  return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
-    "class": "btn btn-success btn-block btn-lg gradient-custom-4 text-body"
-  }, " Log in ", -1
-  /* HOISTED */
-  );
-});
-
-var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("span", {
     "class": "d-block text-left my-4 text-muted"
   }, " or sign in with", -1
@@ -166,7 +171,7 @@ var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
   );
 });
 
-var _hoisted_18 = /*#__PURE__*/_withScopeId(function () {
+var _hoisted_17 = /*#__PURE__*/_withScopeId(function () {
   return /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", {
     "class": "social-login"
   }, [/*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("a", {
@@ -227,7 +232,13 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
       /* PROPS */
       , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("p", _hoisted_14, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_ErrorMessage, {
         name: "password"
-      })])]), _hoisted_15, _hoisted_16, _hoisted_17, _hoisted_18];
+      })])]), _hoisted_15, (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("button", {
+        type: "button",
+        onClick: _cache[2] || (_cache[2] = function () {
+          return $options.onLogin && $options.onLogin.apply($options, arguments);
+        }),
+        "class": "btn btn-success btn-block btn-lg gradient-custom-4 text-body"
+      }, " Log in "), _hoisted_16, _hoisted_17];
     }),
     _: 1
     /* STABLE */

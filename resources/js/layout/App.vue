@@ -1,7 +1,7 @@
 <template>
     <main>
          <header v-if="noPath">
-              <Top :isEmailVerify='isEmailVerify' />  
+              <Top />  
               <Navbar  :isAuth='sessionAuth' />    
          </header>
          <router-view :isEmailVerify='isEmailVerify' />
@@ -11,11 +11,10 @@
 <script>
 import Navbar from '../static/Navbar.vue'
 import Top from '../static/Top.vue'
-export default {
+export  default {
  
  data(){
    return {
-        isEmailVerify:false,
         noPath:true,
         sessionAuth:false
    }
@@ -31,8 +30,8 @@ export default {
        Navbar,
        Top 
  },
- created() {
-    //  this.sessionAuth = JSON.parse(sessionStorage.getItem('isAuth'));
+ create() {
+      this.sessionAuth = JSON.parse(sessionStorage.getItem('isAuth'));
  },
  
 };

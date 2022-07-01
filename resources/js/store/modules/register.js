@@ -5,7 +5,7 @@ export default {
     
     actions: {        
         async register(stx,get){        
-               if (await this.dispatch('csrf')) {   
+             //  if (await this.dispatch('csrf')) {   
                     try{
                         const response = await axios.post('/v1/register',
                             {
@@ -13,8 +13,14 @@ export default {
                                role:get.role,
                                password:get.password
                             }
-                        );                     
-                        stx.commit('registerStatus',response.status);                         
+                        ); 
+
+                         if(response.status==201){       
+                               
+                            sessionStorage.setItem('_token',response.data.token);                  
+
+                            stx.commit('registerStatus',true); 
+                         }                                           
                           
                         }
                         catch(err){
@@ -27,7 +33,7 @@ export default {
                                 console.error("unconnected"+err);
                             }             
                           }  
-                 }              
+               //  }              
          }
     },
     mutations: {

@@ -48,6 +48,8 @@
                   </span>
                 </div>
                 <button
+                  type="button"
+                  @click="onLogin"
                   class="
                     btn btn-success btn-block btn-lg
                     gradient-custom-4
@@ -94,8 +96,14 @@ export default {
     ErrorMessage,
   },
   methods: {
-    onLogin() {
-      console.log("login");
+    onLogin() {   
+      this.$store.dispatch('login',{
+         email:this.email,
+         password:this.password
+      }).then((responseSuccess) => {           
+        this.$router.push({name:"home"})
+          responseSuccess ? this.$router.push({name:"home"}):false;
+      })
     },
   },
   computed: {

@@ -14,7 +14,7 @@
            <router-link :to="{name: 'profile'}" class="nav-link">Profile</router-link>
       </li>
        <li  class="nav-item">
-           <router-link :to="{name: 'profile'}" class="nav-link">Logout</router-link>
+           <p type="button"  @click="logout" class="nav-link">Logout</p>
       </li>
       <!-- <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -69,19 +69,22 @@
 } */
 </style>
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
  props: ["isAuth"],   
    
   data() {
     return {
       isLoggedIn:this.isAuth
+      
     };
   },
   watch: {
   '$route'(to, from){
        if(JSON.parse(sessionStorage.getItem('isAuth'))){
-            // this.isLoggedIn = true;  
+           this.isLoggedIn = true;  
+       }else{
+           this.isLoggedIn = false;  
        }   
    }
   },
@@ -92,33 +95,22 @@ export default {
        
   },
   computed: {
-    
+
   }, 
   methods: { 
-    
     onLoginSuccess(){
         this.isLoggedIn = true;     
     }, 
     onhope(val) {    
       this.thisCartsCount = val;
     },
-    logout(e) {
-      e.preventDefault();        
-       this.$axios.get("/sanctum/csrf-cookie").then((response) => {
-        this.$axios
-          .post("/api/logout")
-          .then((response) => {
-            if (response.data == 200) {
-                 sessionStorage.setItem('isAuth',false) 
-                 this.isLoggedIn = false;    
-                 this.$router.push({ name: "login" });
-            } else {
-                 console.log(response);
-            }
-          })
-          .catch(function (error) {
-            console.error(error);
-          });
+   logout(e) {
+     e.preventDefault();  
+
+    
+      this.$store.dispatch('logout').then((responseSuccess) => { 
+        
+              responseSuccess ?  this.$router.push({name:"login"}) :false;
       });
     },
   },

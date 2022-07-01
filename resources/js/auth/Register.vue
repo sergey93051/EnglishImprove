@@ -123,7 +123,7 @@ components: {
           password:this.password
        }); 
 
-       this.getRegSuccess==201 ? this.$router.push({name:"home"}):false;  
+       this.getRegSuccess? this.$router.push({name:"home"}):false;  
     },
   }, 
 }
