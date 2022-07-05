@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Auth\LoginRequest;
+use App\Http\Service\Api\V1\TwoFactorService;
 use App\Http\Service\Api\V1\UserEmailService;
 use App\Http\Service\Api\V1\UserService;
 use Illuminate\Support\Facades\Auth;
@@ -20,6 +21,8 @@ class LoginController extends Controller
         if (!Hash::check($request->password, $user->password)) {
             return response()->json(['success' => false],400);
         }
+
+        $val= TwoFactorService::getInstance()->getByUserIdAndIp($user->id , request()->ip());
 
         Auth::login($user);
 
