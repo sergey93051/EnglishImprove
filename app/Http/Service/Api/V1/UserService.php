@@ -51,4 +51,14 @@ class UserService implements ServiceInterface {
         return $this->getRepository()->getUser($id);
     }
 
+    /**
+     * @param int $userId
+     * @param string $newPassword
+     * @return void
+     */
+    public function changePassword(int $userId ,string $newPassword):void
+    {
+        $this->getRepository()->changePassword($userId ,$newPassword);
+    }
+
 }

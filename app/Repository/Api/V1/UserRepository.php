@@ -46,5 +46,18 @@ class UserRepository extends AbstractRepository
         return $this->startCondition()::create($params);
     }
 
+    /**
+     * @param $userId
+     * @param string $newPassword
+     * @return void
+     */
+    public function changePassword($userId ,string $newPassword):void
+    {
+        $user = $this->getUser($userId);
+
+        $user->password = $newPassword;
+
+        $user->update();
+    }
 
 }
