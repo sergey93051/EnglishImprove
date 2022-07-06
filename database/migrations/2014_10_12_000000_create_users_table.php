@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('surname')->nullable();
             $table->string('password');
+            $table->boolean('twoFa')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

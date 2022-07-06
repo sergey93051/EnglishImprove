@@ -22,14 +22,23 @@ class LoginController extends Controller
             return response()->json(['success' => false],400);
         }
 
-        $val= TwoFactorService::getInstance()->getByUserIdAndIp($user->id , request()->ip());
+       /* $hash= TwoFactorService::getInstance()->getHashByUserIdAndIp($user->id , request()->ip());
+
+        if($hash)
+        {
+            TwoFactorService::getInstance()->sendHashMailForConfirmIp($userEmail->email , $hash);
+
+            return response()->json(['success' => false , 'response'=>'Please write code from mail'],406);
+        }*/
 
         Auth::login($user);
 
         $token=$user->createToken($request->email)->plainTextToken;
 
+        $emailVerifiedAt= UserEmailService::getInstance()->getByEmail($request->email)?->email_verified_at;
+
         return response()->json(['success' => true ,'token' => $token ,
-            'email_verified' => !!$user->email_verified_at
+            'email_verified' => !!$emailVerifiedAt
         ]);
     }
 

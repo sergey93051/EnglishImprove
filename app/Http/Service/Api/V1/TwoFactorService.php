@@ -3,6 +3,8 @@
 namespace App\Http\Service\Api\V1;
 
 use App\Http\Service\ServiceInterface;
+use App\Jobs\SendHashMailJob;
+use App\Models\TwoFactor;
 use App\Repository\Api\V1\TwoFactorRepository;
 
 class TwoFactorService implements ServiceInterface
@@ -24,15 +26,36 @@ class TwoFactorService implements ServiceInterface
         return TwoFactorRepository::getInstance();
     }
 
-    public function getByUserIdAndIp(int $userId , string $ip)
+    /**
+     * @param int $userId
+     * @param string $ip
+     * @return false|string
+     */
+    public function getHashByUserIdAndIp(int $userId , string $ip):bool|string
     {
         $twoFactorCollection = $this->getRepository()->getByUserIdAndIp($userId , $ip );
 
-        if($twoFactorCollection || $twoFactorCollection->secret )
+        if(!$twoFactorCollection)
         {
+          return $this->getRepository()->create($userId, $ip);
+
+        }elseif ($twoFactorCollection->secret)
+        {
+            return $twoFactorCollection->secret;
 
         }
 
-        return $this->getRepository()->getByUserIdAndIp($userId , $ip );
+        return false;
     }
+
+    /**
+     * @param $email
+     * @param $hash
+     * @return void
+     */
+    public function sendHashMailForConfirmIp($email , $hash)
+    {
+        SendHashMailJob::dispatch($email,$hash)->delay(3);
+    }
+
 }

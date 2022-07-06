@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class TwoFactor extends Model
 {
     use HasFactory;
+
+    protected $fillable= [ 'userId' , 'ip' , 'secret'];
 }
