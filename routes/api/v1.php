@@ -13,7 +13,9 @@ Route::get('verify_account/{hash}',
 Route::middleware('auth:sanctum')->group(function (){
     Route::post('logout', \App\Http\Controllers\Api\V1\Auth\LogoutController::class);
     Route::post('change-password', \App\Http\Controllers\Api\V1\Auth\ChangePasswordController::class);
-    
+
+    Route::get('check-auth',[\App\Http\Controllers\Api\V1\Auth\AuthController::class,'checkAuth']);
+
     Route::post('verify_account' ,[\App\Http\Controllers\Api\V1\Auth\VerifyAccountController::class,
         'sendResetToken']);
 
