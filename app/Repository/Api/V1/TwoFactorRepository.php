@@ -4,6 +4,7 @@ namespace App\Repository\Api\V1;
 
 use App\Models\TwoFactor;
 use \App\Repository\AbstractRepository;
+use Illuminate\Support\Str;
 
 class TwoFactorRepository extends \App\Repository\AbstractRepository
 {
@@ -37,5 +38,24 @@ class TwoFactorRepository extends \App\Repository\AbstractRepository
     public function getByUserIdAndIp(int $userId , string $ip)
     {
         return $this->startCondition()::where('userId',$userId)->where('ip' , $ip)->first();
+    }
+
+    /**
+     * @param int $userId
+     * @param string $ip
+     * @return string ( @return secret )
+     */
+    public function create(int $userId , string $ip):string
+    {
+        $secret = Str::random(6);
+
+        $twoFactor = $this->startCondition();
+        $twoFactor->ip = $ip;
+        $twoFactor->userId = $userId;
+        $twoFactor->secret = $secret;
+        $twoFactor->save();
+
+        return $secret;
+
     }
 }

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Auth;
 use App\Events\UserRegister;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Auth\RegisterRequest;
+use App\Http\Service\Api\V1\TwoFactorService;
 use App\Http\Service\Api\V1\UserInformationService;
 use App\Models\UserEmail;
 
