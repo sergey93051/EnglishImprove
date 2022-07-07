@@ -19,7 +19,7 @@
 				    </div>
 			    </div>
 		    </div>
-			  <AlertEV v-if="!isEmailVerify" />		
+			  <AlertEV v-if="!isEmailVerify"/>		
 		  </div>
 
     </div>
@@ -27,16 +27,27 @@
 <script>
 import AlertEV from "./AlertEV.vue";
 export default {
+     props:['isVerify'],
 	data() {  
 		 return {
-			isEmailVerify:sessionStorage.getItem('email_verified')
+			isEmailVerify:this.isVerify
 		 }
 	},
+	watch:{
+    //    '$route'(to, from){
+		  
+	//    }
+	}, 
 	components:{
-        AlertEV
+          AlertEV
 	},
-	mounted(){
-	
+	mounted() {	
+      this.$emitter.on('loginEvent',(eventData) => {
+           this.isEmailVerify = eventData.email_verified 
+      });
+	  this.$emitter.on("registerEvent", (eventData) => {      
+          this.isEmailVerify = false;
+      });
 	}
 }
 </script>

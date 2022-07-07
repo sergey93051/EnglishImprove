@@ -18,6 +18,9 @@
                   Lorem ipsum dolor sit amet elit. Sapiente sit aut eos
                   consectetur adipisicing.
                 </p>
+                 <p v-if="loginError" class="alert alert-danger">
+                    <strong>{{loginError}}</strong>
+                 </p>
               </div>
               <Form @submit="onLogin" :validation-schema="schemaLogin">
                 <div class="form-group email-form-group">
@@ -81,6 +84,7 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
 import { Form, Field, ErrorMessage } from "vee-validate";
 import * as yup from "yup";
 export default {
@@ -88,6 +92,7 @@ export default {
     return {
       email: "",
       password: "",
+   
     };
   },
   components: {
@@ -96,17 +101,19 @@ export default {
     ErrorMessage,
   },
   methods: {
-    onLogin() {   
-      this.$store.dispatch('login',{
+   async onLogin() { 
+      this.loginError = ''; 
+     await this.$store.dispatch('login',{
          email:this.email,
          password:this.password
-      }).then((responseSuccess) => {           
-        this.$router.push({name:"home"})
-          responseSuccess ? this.$router.push({name:"home"}):false;
+      }).then((responseData) => {   
+          this.$emitter.emit('loginEvent',responseData);        
+          responseData.success ? this.$router.push({name:"home"}):false;
       })
     },
   },
   computed: {
+    ...mapGetters(['loginError']),
     schemaLogin() {
       return yup.object({
         email: yup.string().email().required(),

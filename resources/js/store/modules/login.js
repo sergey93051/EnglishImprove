@@ -1,5 +1,6 @@
 import axios from 'axios'
 
+
 export default { 
     
     actions: {        
@@ -16,25 +17,32 @@ export default {
                             sessionStorage.setItem('email_verified',response.data.email_verified);
                             sessionStorage.setItem('_token',response.data.token);
                             sessionStorage.setItem('isAuth',true); 
-                            return  response.data.success;
+                            return  response.data;
                         }    
                          
 
                         }
                         catch(err){
-                             console.error(err);
+                            if(err.response.status==400){
+                                stx.commit("loginError",'The user Email or password is incorrect')
+                            }
+                             
                         }  
                 //  }               
          }
     },
     mutations: {
-        
+        loginError(state,loginError){
+            state.error = loginError
+        }
     },
     state:{
-     
+        error:""
     },
     getters:{
-      
+        loginError(state){
+            return  state.error;
+        }
     },
 
 }; 

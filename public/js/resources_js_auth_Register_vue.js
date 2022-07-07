@@ -94,11 +94,13 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 });
 
               case 3:
+                _this.$emitter.emit('registerEvent', true);
+
                 _this.getRegSuccess ? _this.$router.push({
                   name: "home"
                 }) : false;
 
-              case 4:
+              case 5:
               case "end":
                 return _context.stop();
             }

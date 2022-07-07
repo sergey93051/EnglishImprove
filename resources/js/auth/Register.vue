@@ -122,7 +122,7 @@ components: {
           role:this.chooseRole,
           password:this.password
        }); 
-
+       this.$emitter.emit('registerEvent',true)
        this.getRegSuccess? this.$router.push({name:"home"}):false;  
     },
   }, 

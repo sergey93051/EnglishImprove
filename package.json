@@ -25,6 +25,7 @@
     "dependencies": {
         "@vee-validate/rules": "^4.5.11",
         "gsap": "^3.10.4",
+        "tiny-emitter": "^2.1.0",
         "vee-validate": "^4.5.11",
         "vue": "^3.2.36",
         "vue-axios": "^3.4.1",
