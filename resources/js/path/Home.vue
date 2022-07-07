@@ -3,3 +3,12 @@
         Home path
     </div>
 </template>
+<script>
+
+
+export default {
+    beforeCreate() {
+        this.$store.dispatch('verify');
+    },
+}
+</script>

@@ -9,6 +9,7 @@ import register  from './modules/register'
 import csrf from './modules/csrf'
 import logout from './modules/logout'
 import login from './modules/login'
+import mailVerify from './modules/mailVerify'
 
 export default new Vuex.Store({
 
@@ -22,6 +23,7 @@ export default new Vuex.Store({
         register,
         csrf,
         logout,
-        login
+        login,
+        mailVerify
      }
 })

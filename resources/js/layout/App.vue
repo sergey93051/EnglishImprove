@@ -1,38 +1,55 @@
 <template>
     <main>
          <header v-if="noPath">
-              <Top />  
-              <Navbar  :isAuth='sessionAuth' />    
+              <Top :isVerify='isEmailVerify'/>  
+              <Navbar  :isAuth='sessionAuth' :isVerify='isEmailVerify' />    
          </header>
-         <router-view :isEmailVerify='isEmailVerify' />
+         <router-view />
     </main>
 </template>
 
 <script>
 import Navbar from '../static/Navbar.vue'
 import Top from '../static/Top.vue'
+
 export  default {
- 
+
  data(){
    return {
         noPath:true,
-        sessionAuth:false
+        sessionAuth:JSON.parse(sessionStorage.getItem('isAuth')),
+        isEmailVerify:JSON.parse(sessionStorage.getItem('email_verified')) 
    }
  },
   watch: {
-  '$route'(to, from){   
+  '$route'(to, from){  
         if (to.name=='noFound') {
              this.noPath = false
         } 
+     //   this.sessionAuth = JSON.parse(sessionStorage.getItem('isAuth')),
+     //   this.isEmailVerify = JSON.parse(sessionStorage.getItem('email_verified'))        
    }
+  },
+  computed:{
+    
   },
  components:{
        Navbar,
        Top 
  },
- create() {
-      this.sessionAuth = JSON.parse(sessionStorage.getItem('isAuth'));
+ methods:{
+    
  },
+ created() {
+   
+//     this.sessionAuth = JSON.parse(sessionStorage.getItem('isAuth')),
+//     this.isEmailVerify = JSON.parse(sessionStorage.getItem('email_verified'))
+ },
+ mounted(){ 
+    this.$emitter.on('ref',($a) => {
+              window.location.reload();
+    });
+ }
  
 };
 </script>

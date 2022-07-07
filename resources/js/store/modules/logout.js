@@ -17,6 +17,7 @@ export default {
 
                            if(response.data.success){
                                sessionStorage.removeItem('_token');
+                               sessionStorage.setItem('email_verified',false); 
                                sessionStorage.setItem('isAuth',false); 
                                 return response.data.success;
                             }

@@ -38,33 +38,43 @@ function checkGuest(to, from, next) {
 }
 
 function checkAuth(to, from, next) {
-  if (to.name == 'home') {
-    axios.get('/v1/check-verified', {
-      headers: {
-        'Authorization': 'Bearer ' + sessionStorage.getItem('_token'),
-        "Accept": "application/json"
-      }
-    }).then((response) => {
-
-      if (response.status == 200) {
-        sessionStorage.setItem('isAuth', true);
+  switch (to.name) {
+    case 'home':
+      axios.get('/v1/check-auth', {
+        headers: {
+          'Authorization': 'Bearer ' + sessionStorage.getItem('_token'),
+          "Accept": "application/json"
+        }
+      }).then((response) => {
+        if (response.status == 200) {
+          sessionStorage.setItem('isAuth', true);
+          return next();
+        } else {
+          console.error("unconnected");
+          return next({ name: 'login' })
+        }
+      }).catch((error) => {
+        if (error.response.status == 401) {
+          sessionStorage.setItem('isAuth', false);
+          return next({ name: 'login' });
+        }
+        console.error(error);
+        return;
+      });
+      break;
+    case 'profile':
+      if (JSON.parse(sessionStorage.getItem('email_verified'))) {
         return next();
-      } else {
-        console.error("unconnected");
-        return next({ name: 'login' })
       }
-    }).catch((error)=>{
-      sessionStorage.setItem('isAuth', false);
-      return next({ name: 'login' });
-    });    
-  } else {
-    if (!JSON.parse(sessionStorage.getItem('isAuth'))) {
-      return next({ name: "login" });
-    }
-    return next();
+      return next({ name: 'home' });
+      break;
+    default:
+      if (!JSON.parse(sessionStorage.getItem('isAuth'))) {
+        return next({ name: "login" });
+      }
+      return next();
   }
 }
-
 
 
 export default createRouter({
