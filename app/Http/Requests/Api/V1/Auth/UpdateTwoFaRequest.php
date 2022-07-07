@@ -3,8 +3,9 @@
 namespace App\Http\Requests\Api\V1\Auth;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class ChangePasswordRequest extends FormRequest
+class UpdateTwoFaRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +25,7 @@ class ChangePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'oldPassword' =>  'required',
-            'password' =>  'required|min:6|max:15',
+            'twoFa' => 'required|'.Rule::in([0,1])
         ];
     }
 }

@@ -10,4 +10,9 @@ class AuthController extends Controller
     {
         return ['success' => true];
     }
+
+    public function loginByTwoFaKey()
+    {
+
+    }
 }

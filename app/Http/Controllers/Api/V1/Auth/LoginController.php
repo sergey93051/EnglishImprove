@@ -3,17 +3,16 @@
 namespace App\Http\Controllers\Api\V1\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Api\V1\Auth\LoginByCodeRequest;
 use App\Http\Requests\Api\V1\Auth\LoginRequest;
-use App\Http\Service\Api\V1\TwoFactorService;
 use App\Http\Service\Api\V1\UserEmailService;
 use App\Http\Service\Api\V1\UserService;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
 
-    public function __invoke(LoginRequest $request , UserEmailService $userEmailService)
+    public function login(LoginRequest $request , UserEmailService $userEmailService)
     {
         $userEmail = $userEmailService->getByEmail($request->email);
         $user = UserService::getInstance()->getById($userEmail->userId);
@@ -22,24 +21,27 @@ class LoginController extends Controller
             return response()->json(['success' => false],400);
         }
 
-       /* $hash= TwoFactorService::getInstance()->getHashByUserIdAndIp($user->id , request()->ip());
-
-        if($hash)
+        if(!$user->twoFa)
         {
-            TwoFactorService::getInstance()->sendHashMailForConfirmIp($userEmail->email , $hash);
+            return UserService::getInstance()->loginUser($user , $request->email);
+        }
 
-            return response()->json(['success' => false , 'response'=>'Please write code from mail'],406);
-        }*/
+        $hashExists = UserService::getInstance()->twoFactorAuthentication($user->id ,$userEmail->email);
 
-        Auth::login($user);
+        if(!$hashExists)
+        {
+            return UserService::getInstance()->loginUser($user , $request->email);
+        }
 
-        $token=$user->createToken($request->email)->plainTextToken;
+        return response()->json(['success' => false , 'response'=>'Please write code from mail'],406);
 
-        $emailVerifiedAt= UserEmailService::getInstance()->getByEmail($request->email)?->email_verified_at;
+    }
 
-        return response()->json(['success' => true ,'token' => $token ,
-            'email_verified' => !!$emailVerifiedAt
-        ]);
+
+
+    public function loginByCode(LoginByCodeRequest $request )
+    {
+       return UserService::getInstance()->loginByCode($request);
     }
 
 }
