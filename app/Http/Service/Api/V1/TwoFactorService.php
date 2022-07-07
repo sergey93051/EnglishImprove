@@ -29,23 +29,24 @@ class TwoFactorService implements ServiceInterface
     /**
      * @param int $userId
      * @param string $ip
-     * @return false|string
+     * @return string
      */
-    public function getHashByUserIdAndIp(int $userId , string $ip):bool|string
+    public function getHashByUserIdAndIp(int $userId , string $ip):string
     {
         $twoFactorCollection = $this->getRepository()->getByUserIdAndIp($userId , $ip );
 
         if(!$twoFactorCollection)
         {
-          return $this->getRepository()->create($userId, $ip);
+            return $this->getRepository()->create($userId, $ip);
+        }
 
-        }elseif ($twoFactorCollection->secret)
+        if($twoFactorCollection->secret)
         {
-            return $twoFactorCollection->secret;
-
+            return $this->getRepository()->updateSecret($userId ,$ip);
         }
 
         return false;
+
     }
 
     /**
@@ -57,5 +58,22 @@ class TwoFactorService implements ServiceInterface
     {
         SendHashMailJob::dispatch($email,$hash)->delay(3);
     }
+
+    /**
+     * @param string $code
+     * @return mixed
+     */
+    public function verifyCode(string $code)
+    {
+        return $this->getRepository()->verifyCode($code);
+    }
+
+    public function checkEmailMatch(string $code , string $email)
+    {
+       return $this->getRepository()->checkEmailMatch($code , $email);
+    }
+
+
+
 
 }

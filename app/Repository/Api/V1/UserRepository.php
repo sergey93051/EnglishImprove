@@ -60,4 +60,17 @@ class UserRepository extends AbstractRepository
         $user->update();
     }
 
+    /**
+     * @param int $userId
+     * @param bool $state
+     * @return mixed
+     */
+    public function updateTwoFaState(int $userId , bool $state)
+    {
+        $user = $this->getUser($userId);
+        $user->twoFa = $state;
+
+       return $user->update();
+    }
+
 }

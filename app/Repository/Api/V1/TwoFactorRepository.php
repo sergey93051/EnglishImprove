@@ -58,4 +58,55 @@ class TwoFactorRepository extends \App\Repository\AbstractRepository
         return $secret;
 
     }
+
+    /**
+     * @param int $userId
+     * @param string $ip
+     * @return string (Return hash)
+     */
+    public function updateSecret(int $userId , string $ip):string
+    {
+        $twoFactorModel = $this->startCondition()::where('ip',$ip)->where('userId',$userId)->first();
+
+        $secret = Str::random(6);
+        $twoFactorModel->secret =$secret;
+
+        $twoFactorModel->update();
+
+        return $secret;
+    }
+
+    /**
+     * @param string $code
+     * @return mixed
+     */
+    public function verifyCode(string $code)
+    {
+        $twoFactorModel = $this->getByCode($code);
+        $twoFactorModel->secret = null;
+
+        $twoFactorModel->update();
+
+        return $twoFactorModel;
+    }
+
+    /**
+     * @param string $code
+     * @return mixed
+     */
+    public function getByCode(string $code)
+    {
+        return $this->startCondition()::where('secret',$code)->first();
+    }
+
+    public function checkEmailMatch($code , $email)
+    {
+        $twoFactorModel = $this->getByCode($code)->load('emails');
+
+        $emailsCollection = $twoFactorModel->emails()->get();
+
+        return $emailsCollection->contains(function ($value, $key) use ($email) {
+               return  $value->email ===$email;
+        });
+    }
 }

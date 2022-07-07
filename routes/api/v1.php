@@ -3,7 +3,8 @@
 use Illuminate\Support\Facades\Route;
 
 Route::post('register', \App\Http\Controllers\Api\V1\Auth\RegisterController::class);
-Route::post('login', \App\Http\Controllers\Api\V1\Auth\LoginController::class);
+Route::post('login', [\App\Http\Controllers\Api\V1\Auth\LoginController::class,'login']);
+Route::post('login-by-code',[\App\Http\Controllers\Api\V1\Auth\LoginController::class,'loginByCode']);
 
 
 Route::get('verify_account/{hash}',
@@ -23,6 +24,8 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::put('update-information',[\App\Http\Controllers\Api\V1\UserInformationController::class,'updatePersonalInformation']);
 
     Route::get('check-verified',[\App\Http\Controllers\Api\V1\Auth\VerifyAccountController::class,'checkVerified']);
+
+    Route::put('update-2fa-state',[\App\Http\Controllers\Api\V1\Auth\TwoFaController::class, 'update']);
 
      });
 

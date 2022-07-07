@@ -18,7 +18,7 @@ return new class extends Migration
 
             $table->unsignedBigInteger('userId');
             $table->string('ip');
-            $table->string('secret');
+            $table->string('secret')->nullable();
 
             $table->timestamps();
         });
