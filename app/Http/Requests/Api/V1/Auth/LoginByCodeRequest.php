@@ -24,7 +24,7 @@ class LoginByCodeRequest extends FormRequest
     public function rules()
     {
         return [
-            'code'  => 'required|exists:two_factors,secret',
+            'code'  => 'required|exists:two_factors,secret|string|min:6|max:6',
             'email' => 'required|exists:user_emails,email'
         ];
     }

@@ -37,8 +37,6 @@ class LoginController extends Controller
 
     }
 
-
-
     public function loginByCode(LoginByCodeRequest $request )
     {
        return UserService::getInstance()->loginByCode($request);
