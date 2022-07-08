@@ -73,7 +73,11 @@ class TwoFactorService implements ServiceInterface
        return $this->getRepository()->checkEmailMatch($code , $email);
     }
 
-
-
-
+    /**
+     * @return void
+     */
+    public function removeTwoFaIpConfirm()
+    {
+        $this->getRepository()->removeTwoFaIpConfirm();
+    }
 }

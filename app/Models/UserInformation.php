@@ -9,6 +9,6 @@ class UserInformation extends Model
 {
     use HasFactory;
 
-    protected $fillable=['userId','name','address','phone_code','phone','age'];
+    protected $fillable=['userId','name','address','phone_code','phone','age','image'];
 
 }

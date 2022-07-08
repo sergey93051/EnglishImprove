@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::post('register', \App\Http\Controllers\Api\V1\Auth\RegisterController::class);
 Route::post('login', [\App\Http\Controllers\Api\V1\Auth\LoginController::class,'login']);
-Route::post('login-by-code',[\App\Http\Controllers\Api\V1\Auth\LoginController::class,'loginByCode']);
-
+Route::post('login-by-code',[\App\Http\Controllers\Api\V1\Auth\LoginController::class,'loginByCode'])->middleware('throttle:5,1');
 
 Route::get('verify_account/{hash}',
     [\App\Http\Controllers\Api\V1\Auth\VerifyAccountController::class,'verifyAccount'])

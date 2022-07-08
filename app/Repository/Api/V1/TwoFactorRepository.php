@@ -4,6 +4,7 @@ namespace App\Repository\Api\V1;
 
 use App\Models\TwoFactor;
 use \App\Repository\AbstractRepository;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class TwoFactorRepository extends \App\Repository\AbstractRepository
@@ -109,4 +110,15 @@ class TwoFactorRepository extends \App\Repository\AbstractRepository
                return  $value->email ===$email;
         });
     }
+
+    /**
+     * @return void
+     */
+    public function removeTwoFaIpConfirm()
+    {
+        $carbon = \Carbon\Carbon::now()->subMinutes(5);
+
+        $this->startCondition()::where('created_at','<' , $carbon)->whereNotNull('secret')->delete();
+    }
+
 }

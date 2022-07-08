@@ -2,6 +2,9 @@
 
 namespace App\Console;
 
+use App\Http\Service\Api\V1\TwoFactorService;
+use App\Jobs\RemoveTwoFaIpConfirmJob;
+use App\Models\TwoFactor;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -15,7 +18,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+        $schedule->call(function (){
+            TwoFactorService::getInstance()->removeTwoFaIpConfirm();
+        })->everyMinute();
     }
 
     /**
