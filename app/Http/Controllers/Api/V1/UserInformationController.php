@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V1\Auth\UpdateUserInformationRequest;
 use App\Http\Service\Api\V1\UserInformationService;
+use App\Http\Service\Api\V1\UserService;
 use Illuminate\Support\Facades\Auth;
 
 class UserInformationController extends Controller{
@@ -13,7 +14,12 @@ class UserInformationController extends Controller{
     {
         $userId = Auth::user()->id;
 
-        return UserInformationService::getInstance()->get($userId);
+        $userInformation = UserInformationService::getInstance()->get($userId);
+        $twoFa = UserService::getInstance()->getById($userId)->twoFa;
+
+        $userInformation->twoFa = $twoFa;
+
+        return $userInformation;
     }
 
     public function updatePersonalInformation(UpdateUserInformationRequest $request)
