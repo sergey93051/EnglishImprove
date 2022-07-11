@@ -10,7 +10,7 @@ const routes = [
   {
     name: "login",
     path: '/login',
-    component: () => import('./auth/Login.vue'),
+    component: () => import('./auth/login/Login.vue'),
     beforeEnter: checkGuest
   },
   {

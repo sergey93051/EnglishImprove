@@ -96,9 +96,7 @@ components: {
               //  },
               //  set:function(value){
               //    return !!this.$store.getters.getRegError();
-              //  }
-
-     
+              //  }  
 
 
    schemaRegister() {
@@ -115,14 +113,14 @@ components: {
 
   },
   methods: {
-   async onRegister() {  
-      this.getRegError = '';
+   async onRegister() { 
+
       await this.$store.dispatch('register',{
           email:this.email,
           role:this.chooseRole,
           password:this.password
        }); 
-       this.$emitter.emit('registerEvent',true)
+       this.$emitter.emit('registerEvent',true);
        this.getRegSuccess? this.$router.push({name:"home"}):false;  
     },
   }, 

@@ -43,7 +43,10 @@ export default {
 	},
 	mounted() {	
       this.$emitter.on('loginEvent',(eventData) => {
-           this.isEmailVerify = eventData.email_verified 
+           this.isEmailVerify =  eventData.email_verified!==undefined?eventData.email_verified:false;
+      });
+	  this.$emitter.on('loginSecondAuthEvent',(eventData) => {
+	           this.isEmailVerify =  eventData.email_verified!==undefined?eventData.email_verified:false;
       });
 	  this.$emitter.on("registerEvent", (eventData) => {      
           this.isEmailVerify = false;

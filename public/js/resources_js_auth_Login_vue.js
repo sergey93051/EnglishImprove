@@ -58,6 +58,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   email: _this.email,
                   password: _this.password
                 }).then(function (responseData) {
+                  console.log(responseData);
+
                   _this.$emitter.emit('loginEvent', responseData);
 
                   responseData.success ? _this.$router.push({

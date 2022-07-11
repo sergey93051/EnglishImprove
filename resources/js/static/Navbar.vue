@@ -90,22 +90,26 @@ export default {
     };
   },
   watch: {
-    //$route(to, from) {
-      // if (JSON.parse(sessionStorage.getItem("isAuth"))) {
-      //   this.isLoggedIn = true;
-      // } else {
-      //   this.isLoggedIn = false;
-      // }
-    //},
+    // $route(to, from) {
+    //   if (JSON.parse(sessionStorage.getItem("isAuth"))) {
+    //     this.isLoggedIn = true;
+    //   } else {
+    //     this.isLoggedIn = false;
+    //   }
+    // },
   },
   mounted() {
-    this.$emitter.on("loginEvent", (eventData) => {
-        this.isLoggedIn = eventData.success,
-        this.isEmailVerify = eventData.email_verified;
+    this.$emitter.on("loginEvent", (eventData) => {      
+        this.isLoggedIn = eventData.success?eventData.success:false,
+        this.isEmailVerify = eventData.email_verified!==undefined?eventData.email_verified:false;
     });
     this.$emitter.on("registerEvent", (eventData) => { 
           this.isLoggedIn = eventData,     
           this.isEmailVerify = false;
+    });
+     this.$emitter.on("loginSecondAuthEvent", (eventData) => {
+        this.isLoggedIn = eventData.success?eventData.success:false,
+        this.isEmailVerify = eventData.email_verified!==undefined?eventData.email_verified:false;
     });
   },
   computed: {},
