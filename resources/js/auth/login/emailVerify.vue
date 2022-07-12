@@ -8,7 +8,7 @@
         <li>You will recieve a verification code on your mail. Enter that code below.</li>      
       </ul>
     </div>
-    <div class="alert alert-danger col-md-12" role="alert">     
+    <div class="alert alert-warning col-md-12" role="alert">     
       <ul>      
         <li>If somehow, you did not recieve the verification email then <a href="#">resend the verification email</a></li>
       </ul>
@@ -28,8 +28,8 @@
             <div class="mt-1 timer">
                 <strong>{{minut}}</strong>:<strong v-if="second<10">0</strong><strong>{{second}}</strong>
             </div>
-            <div class="alert alert-danger mt-2 " role="alert" v-if="loginError">
-                    <strong>{{loginError}}</strong>
+            <div class="alert alert-danger mt-2 " role="alert" v-if="secondAuthError">
+                    <strong>{{secondAuthError}}</strong>
             </div>         
           </div>
         </form>
@@ -47,27 +47,36 @@ export default {
          verifyCodeValue:"",
          timer:null,
          minut:4,
-         second:59, 
+         second:59,
+         
                  
       }
     },
     watch:{
-      async  verifyCode(value){
+      async verifyCode(value){
               if(value.length===6){                
                await  this.$store.dispatch('loginSecondAuth',value).then((response)=>{                
                   this.$emitter.emit("loginSecondAuthEvent",response ?response : false );
                    response ? this.$router.push({ name: "home" }) : false;
                }) 
-           }   
+              }  
           
       },  
        
     },
     computed:{
-       ...mapGetters(['loginError'])
+       ...mapGetters(['secondAuthError','destroyTemp'])
+    },
+    created() {
+      
     },
     beforeDestroy () {
-	       clearInterval(this.timer)
+	       clearInterval(this.timer);        
+     },
+ 
+     destroyed(){
+
+      
      },
     methods:{
         inputEvent(e){       
@@ -85,16 +94,19 @@ export default {
                           if(this.second == 0){
                                   this.second = 60;
                                   this.minut--;
-                          }          
-                          
+                          }                         
                           this.second --;
-                    }, 1000);                 
+                    }, 1000);         
                   
                 
             }      
     },
     mounted() {      
        this.countDownTimer()
+    },
+    async unmounted() {
+         await this.destroyTemp.delSecondAuthError;
+         await this.destroyTemp.delSecondAuthStatus;
     },
 }
 </script>

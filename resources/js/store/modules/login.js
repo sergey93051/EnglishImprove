@@ -62,7 +62,7 @@ export default {
                         catch(err){
                            
                             if(err.response.status==422){                                  
-                                  stx.commit("loginError",err.response.data.message)
+                                  stx.commit("secondAuthError",err.response.data.message)
                             }else{
                                 console.error(err)
                             }
@@ -78,11 +78,15 @@ export default {
         },
         secondAuth(state,status){
             state.secondAuth = status
+        },
+        secondAuthError(state,error){
+            state.secondAuthError = error
         }
     },
     state:{
         error:"",
-        secondAuth:'off'
+        secondAuth:'off',
+        secondAuthError:""
     },
     getters:{
         loginError(state){
@@ -90,6 +94,16 @@ export default {
         },
         secondAuthStatus(state){
             return  state.secondAuth
+        },
+        secondAuthError(state){
+             return  state.secondAuthError;
+        },
+        destroyTemp(state){
+             return {
+                 "delLoginError":state.error = '',
+                 "delSecondAuthError":state.secondAuthError = '',
+                  "delSecondAuthStatus":state.secondAuth = 'off'
+             }
         }
     },
 

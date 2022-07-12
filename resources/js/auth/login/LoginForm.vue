@@ -82,7 +82,8 @@ export default {
           email: this.email,
           password: this.password,
         })
-        .then((response) => {       
+        .then((response) => {    
+          console.log(response)   
           this.$emitter.emit(
             "loginEvent",
             response ? response : false
@@ -94,8 +95,11 @@ export default {
   mounted(){
  
   },
+  async unmounted() {
+       await this.destroyTemp.delLoginError;
+  },
   computed: {
-    ...mapGetters(['loginError']),
+    ...mapGetters(['loginError','destroyTemp']),
     schemaLogin() {
       return yup.object({
         email: yup.string().email().required(),

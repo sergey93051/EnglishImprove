@@ -24228,7 +24228,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 _context2.t0 = _context2["catch"](0);
 
                 if (_context2.t0.response.status == 422) {
-                  stx.commit("loginError", _context2.t0.response.data.message);
+                  stx.commit("secondAuthError", _context2.t0.response.data.message);
                 } else {
                   console.error(_context2.t0);
                 }
@@ -24248,11 +24248,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     secondAuth: function secondAuth(state, status) {
       state.secondAuth = status;
+    },
+    secondAuthError: function secondAuthError(state, error) {
+      state.secondAuthError = error;
     }
   },
   state: {
     error: "",
-    secondAuth: 'off'
+    secondAuth: 'off',
+    secondAuthError: ""
   },
   getters: {
     loginError: function loginError(state) {
@@ -24260,6 +24264,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     secondAuthStatus: function secondAuthStatus(state) {
       return state.secondAuth;
+    },
+    secondAuthError: function secondAuthError(state) {
+      return state.secondAuthError;
+    },
+    destroyTemp: function destroyTemp(state) {
+      return {
+        "delLoginError": state.error = '',
+        "delSecondAuthError": state.secondAuthError = '',
+        "delSecondAuthStatus": state.secondAuth = 'off'
+      };
     }
   }
 });

@@ -28,32 +28,31 @@ import EmailVerify from './emailVerify.vue';
 export default {
     data(){
        return {
-          component:Form ,
-          
-         
+          component:Form, 
        }
     },
-    components:{
-      
-    },
+    components:{},
     computed:{
-        ...mapGetters(['loginError','secondAuthStatus']),
+        ...mapGetters(['loginError','secondAuthStatus','destroyTemp']),
         loginComponent(){
             return this.component     
         }
     },
-    mounted(){
+    created() {
+      // this.destroyTemp.delLoginError;
+    },
+    mounted(){        
         this.$emitter.on('loginEvent',(event)=>{
-
+                 console.log(this.secondAuthStatus)
               if(this.secondAuthStatus==406){
-                  
-                   this.component = EmailVerify;  
+                    this.component = EmailVerify;  
               }                     
         });
         this.$emitter.on('timeoutVerify',(event)=>{
            event ? this.component = Form :null
         });
-    }
+    },
+    
 }
 </script>
 <style>
