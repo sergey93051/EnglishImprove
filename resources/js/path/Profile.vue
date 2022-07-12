@@ -101,6 +101,22 @@
                 <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
               </div>
             </div>
+             <hr>
+             <div class="row">
+              <div class="col-sm-5">
+                <p class="mb-0">Turn on 2-Step Verification</p>
+              </div>
+              <div class="col-sm-7">
+                <p class="text-muted mb-0"><input id="chooseSecondAuth" class="p-1 m-1 " v-model="chooseSecondAuth" ref="chooseSecondAuth" type="checkbox" name="chooseSecondAuth"  /> </p>
+              </div>
+            </div>
+            <div class="row mt-2">
+             
+              <div class="col-sm-7 p-2">
+                   <button class="btn btn-warning" @click="changeProfile">change</button>
+                    <strong v-if="profileUpdate" class="alert alert-success ">{{profileUpdate}}</strong>
+              </div>
+            </div>
           </div>
         </div>
         <div class="row">
@@ -177,8 +193,24 @@
 </section>
 </template>
 <script>
+import { mapGetters } from 'vuex';
 export default {
-    
+
+   data(){
+       return {
+          chooseSecondAuth:""
+       }
+   },
+    computed:{
+      ...mapGetters(['profileUpdate'])
+    },
+     methods:{
+       async changeProfile(){
+          await this.$store.dispatch('twoAuth',{
+               chooseSecondAuth:this.chooseSecondAuth
+           });            
+        }
+     }
 }
 </script>
 <style>

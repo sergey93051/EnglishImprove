@@ -10,6 +10,7 @@ import csrf from './modules/csrf'
 import logout from './modules/logout'
 import login from './modules/login'
 import mailVerify from './modules/mailVerify'
+import twoAuth from './modules/twoAuth'
 
 export default new Vuex.Store({
 
@@ -24,6 +25,7 @@ export default new Vuex.Store({
         csrf,
         logout,
         login,
-        mailVerify
+        mailVerify,
+        twoAuth
      }
 })

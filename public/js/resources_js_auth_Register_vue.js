@@ -66,7 +66,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     //  },
     //  set:function(value){
     //    return !!this.$store.getters.getRegError();
-    //  }
+    //  }  
     schemaRegister: function schemaRegister() {
       return yup__WEBPACK_IMPORTED_MODULE_0__.object({
         email: yup__WEBPACK_IMPORTED_MODULE_0__.string().email().required(),
@@ -85,22 +85,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                _this.getRegError = '';
-                _context.next = 3;
+                _context.next = 2;
                 return _this.$store.dispatch('register', {
                   email: _this.email,
                   role: _this.chooseRole,
                   password: _this.password
                 });
 
-              case 3:
+              case 2:
                 _this.$emitter.emit('registerEvent', true);
 
                 _this.getRegSuccess ? _this.$router.push({
                   name: "home"
                 }) : false;
 
-              case 5:
+              case 4:
               case "end":
                 return _context.stop();
             }
