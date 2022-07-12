@@ -41,8 +41,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var _this = this;
 
     this.$emitter.on('loginEvent', function (event) {
-      console.log(_this.secondAuthStatus);
-
       if (_this.secondAuthStatus == 406) {
         _this.component = _emailVerify_vue__WEBPACK_IMPORTED_MODULE_1__["default"];
       }
@@ -103,7 +101,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     onLogin: function onLogin() {
       var _this = this;
 
-      this.loginError = "";
       this.$store.dispatch("login", {
         email: this.email,
         password: this.password
@@ -118,7 +115,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       });
     }
   },
-  mounted: function mounted() {},
+  mounted: function mounted() {//  console.log(this.loginError)
+  },
   unmounted: function unmounted() {
     var _this2 = this;
 
@@ -138,7 +136,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }, _callee);
     }))();
   },
-  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(['loginError', 'destroyTemp'])), {}, {
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_2__.mapGetters)(['destroyTemp'])), {}, {
+    loginError: function loginError() {
+      return this.$store.getters.loginError;
+    },
     schemaLogin: function schemaLogin() {
       return yup__WEBPACK_IMPORTED_MODULE_0__.object({
         email: yup__WEBPACK_IMPORTED_MODULE_0__.string().email().required(),
@@ -184,7 +185,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       verifyCodeValue: "",
       timer: null,
       minut: 4,
-      second: 59
+      second: 59,
+      //  secondAuthError:"",
+      inputcolor: {
+        color: "black"
+      } //  styleInput:{
+      //      "color":red
+      //  }                
+
     };
   },
   watch: {
@@ -197,7 +205,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 if (!(value.length === 6)) {
-                  _context.next = 3;
+                  _context.next = 5;
                   break;
                 }
 
@@ -211,6 +219,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 3:
+                _context.next = 6;
+                break;
+
+              case 5:
+                if (value.length < 6) {
+                  _this.$store.getters.destroyTemp.delSecondAuthError;
+                }
+
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -219,8 +236,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }))();
     }
   },
-  computed: _objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['secondAuthError', 'destroyTemp'])),
-  created: function created() {},
+  computed: _objectSpread(_objectSpread({}, (0,vuex__WEBPACK_IMPORTED_MODULE_0__.mapGetters)(['destroyTemp'])), {}, {
+    secondAuthError: function secondAuthError() {
+      if (this.$store.getters.secondAuthError.length > 1) {
+        this.inputcolor.color = "red";
+      } else {
+        this.inputcolor.color = "black";
+      }
+
+      return this.$store.getters.secondAuthError;
+    }
+  }),
   beforeDestroy: function beforeDestroy() {
     clearInterval(this.timer);
   },
@@ -262,7 +288,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           switch (_context2.prev = _context2.next) {
             case 0:
               _context2.next = 2;
-              return _this3.destroyTemp.delSecondAuthError;
+              return _this3.destroyTemp.delLoginError;
 
             case 2:
               _context2.next = 4;
@@ -443,7 +469,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
 
   var _component_Form = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Form");
 
-  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, _hoisted_4, _ctx.loginError ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.loginError), 1
+  return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [_hoisted_3, _hoisted_4, $options.loginError ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("p", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.loginError), 1
   /* TEXT */
   )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Form, {
     onSubmit: $options.onLogin,
@@ -544,8 +570,6 @@ var _hoisted_6 = /*#__PURE__*/_withScopeId(function () {
 });
 
 var _hoisted_7 = {
-  method: "post",
-  action: "confirm",
   role: "form"
 };
 var _hoisted_8 = {
@@ -574,18 +598,19 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
     onInput: _cache[0] || (_cache[0] = function () {
       return $options.inputEvent && $options.inputEvent.apply($options, arguments);
     }),
+    style: (0,vue__WEBPACK_IMPORTED_MODULE_0__.normalizeStyle)($data.inputcolor),
     "class": "form-control col-md-6 col-sm-6 col-sm-offset-2",
     name: "verifyCode",
     "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
       return $data.verifyCode = $event;
     })
-  }, null, 544
-  /* HYDRATE_EVENTS, NEED_PATCH */
+  }, null, 36
+  /* STYLE, HYDRATE_EVENTS */
   ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelText, $data.verifyCode]])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_10, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.minut), 1
   /* TEXT */
   ), _hoisted_11, $data.second < 10 ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("strong", _hoisted_12, "0")) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($data.second), 1
   /* TEXT */
-  )]), _ctx.secondAuthError ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(_ctx.secondAuthError), 1
+  )]), $options.secondAuthError ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("div", _hoisted_13, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("strong", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)($options.secondAuthError), 1
   /* TEXT */
   )])) : (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)("v-if", true)])])])])])]);
 }
@@ -612,7 +637,7 @@ __webpack_require__.r(__webpack_exports__);
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 ___CSS_LOADER_EXPORT___.i(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_use_1_css_login_css__WEBPACK_IMPORTED_MODULE_1__["default"]);
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\r\n\r\n\r\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\r\n\r\n\r\n\r\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

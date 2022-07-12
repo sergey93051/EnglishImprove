@@ -76,8 +76,7 @@ export default {
     ErrorMessage,
   },
   methods: {   
-      onLogin() {        
-        this.loginError = "";
+      onLogin() {       
         this.$store.dispatch("login", {
           email: this.email,
           password: this.password,
@@ -93,13 +92,17 @@ export default {
     },
   },
   mounted(){
- 
+  //  console.log(this.loginError)
   },
   async unmounted() {
-       await this.destroyTemp.delLoginError;
+        await this.destroyTemp.delLoginError;
   },
   computed: {
-    ...mapGetters(['loginError','destroyTemp']),
+    ...mapGetters(['destroyTemp']),
+   
+    loginError:function(){
+         return this.$store.getters.loginError;      
+    },
     schemaLogin() {
       return yup.object({
         email: yup.string().email().required(),

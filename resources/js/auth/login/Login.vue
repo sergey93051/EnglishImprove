@@ -43,7 +43,6 @@ export default {
     },
     mounted(){        
         this.$emitter.on('loginEvent',(event)=>{
-                 console.log(this.secondAuthStatus)
               if(this.secondAuthStatus==406){
                     this.component = EmailVerify;  
               }                     
@@ -55,8 +54,9 @@ export default {
     
 }
 </script>
-<style>
+<style >
 @import '../../../css/login.css';
+
 
 
 </style>

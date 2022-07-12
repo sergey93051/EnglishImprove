@@ -20,12 +20,12 @@
     <div class="col-md-12">
       <div class="jumbotron text-center">
         <h2>Enter the verification code</h2>
-        <form method="post" action="confirm" role="form">
+        <form role="form">
           <div class="col-md-9 col-sm-12">
             <div class="form-group form-group-lg">
-              <input type="text"  @input="inputEvent"   class="form-control col-md-6 col-sm-6 col-sm-offset-2" name="verifyCode" v-model="verifyCode">
+              <input type="text"  @input="inputEvent" :style="inputcolor"   class="form-control col-md-6 col-sm-6 col-sm-offset-2" name="verifyCode" v-model="verifyCode">
             </div>
-            <div class="mt-1 timer">
+            <div class="mt-1 timer">              
                 <strong>{{minut}}</strong>:<strong v-if="second<10">0</strong><strong>{{second}}</strong>
             </div>
             <div class="alert alert-danger mt-2 " role="alert" v-if="secondAuthError">
@@ -47,29 +47,44 @@ export default {
          verifyCodeValue:"",
          timer:null,
          minut:4,
-         second:59,
-         
-                 
+         second:59,      
+        //  secondAuthError:"",
+         inputcolor:{
+           color:"black"
+         }
+      
+        //  styleInput:{
+        //      "color":red
+        //  }                
       }
     },
     watch:{
       async verifyCode(value){
-              if(value.length===6){                
+              if(value.length===6){                     
                await  this.$store.dispatch('loginSecondAuth',value).then((response)=>{                
-                  this.$emitter.emit("loginSecondAuthEvent",response ?response : false );
+                   this.$emitter.emit("loginSecondAuthEvent",response ?response : false );
                    response ? this.$router.push({ name: "home" }) : false;
                }) 
-              }  
+              }else if(value.length<6){
+                  this.$store.getters.destroyTemp.delSecondAuthError;                             
+              }
+           
           
       },  
        
     },
     computed:{
-       ...mapGetters(['secondAuthError','destroyTemp'])
-    },
-    created() {
-      
-    },
+        ...mapGetters(['destroyTemp']),
+        secondAuthError:function(){
+              if(this.$store.getters.secondAuthError.length>1){
+                 this.inputcolor.color = "red"
+              }else{
+                 this.inputcolor.color = "black"
+              }             
+              return this.$store.getters.secondAuthError;
+           }
+        },         
+        
     beforeDestroy () {
 	       clearInterval(this.timer);        
      },
@@ -81,6 +96,7 @@ export default {
     methods:{
         inputEvent(e){       
           e.target.value = e.target.value.match(/^([A-Za-z0-9]{0,6})/)[0]; 
+        
           return this.verifyCode = e.target.value;  
         },
          countDownTimer () {                                  
@@ -105,12 +121,13 @@ export default {
        this.countDownTimer()
     },
     async unmounted() {
-         await this.destroyTemp.delSecondAuthError;
+         await this.destroyTemp.delLoginError;
          await this.destroyTemp.delSecondAuthStatus;
     },
 }
 </script>
 <style scoped>
+
    .jumbotron.text-center {
     height: 17em;
 }
