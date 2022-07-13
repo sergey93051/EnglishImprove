@@ -108,7 +108,6 @@ class UserService implements ServiceInterface {
         }
 
         $twoFactorModel = TwoFactorService::getInstance()->verifyCode($code);
-
         $userId = $twoFactorModel->userId;
 
         $user = UserService::getInstance()->getById($userId);
