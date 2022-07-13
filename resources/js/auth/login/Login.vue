@@ -11,8 +11,7 @@
         </div>
         <div class="col-md-6 contents">
           <div class="row justify-content-center">
-            <div class="col-md-8">
-             
+            <div class="col-md-8">             
                 <component :is="loginComponent" />
             </div>
           </div>

@@ -59,10 +59,19 @@
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
-                <p class="mb-0">Full Name</p>
+                <p class="mb-0">Name</p>
               </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">Johnatan Smith</p>
+              <div class="col-sm-7">
+                <p class="text-muted mb-0"><input v-model="profName" type="text"  class="form-control"></p>
+              </div>
+            </div>
+            <hr>
+            <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Surname</p>
+              </div>
+              <div class="col-sm-7">
+                <p class="text-muted mb-0 "><input v-model="profSurname" type="text"  class="form-control"></p>
               </div>
             </div>
             <hr>
@@ -70,26 +79,17 @@
               <div class="col-sm-3">
                 <p class="mb-0">Email</p>
               </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">example@example.com</p>
+              <div class="col-sm-7">
+                <p class="text-muted mb-0"><input v-model="profEmail" type="email" class="form-control"></p>
               </div>
             </div>
-            <hr>
-            <div class="row">
-              <div class="col-sm-3">
-                <p class="mb-0">Phone</p>
-              </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">(097) 234-5678</p>
-              </div>
-            </div>
-            <hr>
+            <hr>            
             <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">Mobile</p>
               </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">(098) 765-4321</p>
+              <div class="col-sm-7">
+                <p class="text-muted mb-0"><input v-model="profMobile" type="text" class="form-control"></p>
               </div>
             </div>
             <hr>
@@ -97,8 +97,8 @@
               <div class="col-sm-3">
                 <p class="mb-0">Address</p>
               </div>
-              <div class="col-sm-9">
-                <p class="text-muted mb-0">Bay Area, San Francisco, CA</p>
+              <div class="col-sm-7">
+                <p class="text-muted mb-0"><input v-model="profAddress" type="text" class="form-control"></p>
               </div>
             </div>
              <hr>
@@ -210,7 +210,10 @@ export default {
                chooseSecondAuth:this.chooseSecondAuth
            });            
         }
-     }
+     },
+     async unmounted() {
+        // await this.destroyTemp.delLoginError;
+     },
 }
 </script>
 <style>
