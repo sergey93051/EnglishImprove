@@ -30,11 +30,10 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->routes(function () {
 
-        $this->apiV1();
+            $this->apiV1();
 
-            // Route::middleware('api')
-            //     ->prefix('api')
-            //     ->group(base_path('routes/api.php'));
+            $this->routesForTest();
+
 
             Route::middleware('web')
                 ->group(base_path('routes/web.php'));
@@ -42,18 +41,24 @@ class RouteServiceProvider extends ServiceProvider
     }
 
 
-       /**
+    /**
      * new route model
      *
      * @return void
      */
 
-    protected function apiV1(){
-
+    protected function apiV1()
+    {
         Route::prefix('v1')
             ->middleware('api')
             ->group(base_path('routes/api/v1.php'));
+    }
 
+    protected function routesForTest()
+    {
+        Route::prefix('v1')
+            ->middleware('api')
+            ->group(base_path('routes/api/test.php'));
     }
 
     /**

@@ -26,6 +26,10 @@ Route::middleware('auth:sanctum')->group(function (){
 
     Route::put('update-2fa-state',[\App\Http\Controllers\Api\V1\Auth\TwoFaController::class, 'update']);
 
+    Route::get('get-state',[\App\Http\Controllers\Api\V1\Auth\StateController::class,'get']);
+
+    Route::put('update-state',[\App\Http\Controllers\Api\V1\Auth\StateController::class,'update']);
+
      });
 
 

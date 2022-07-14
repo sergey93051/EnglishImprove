@@ -128,4 +128,13 @@ class UserService implements ServiceInterface {
         ]);
     }
 
+    /**
+     * @param int $userId
+     * @return void
+     */
+    public function deleteUser(int $userId)
+    {
+        $this->getRepository()->deleteUser($userId);
+    }
+
 }

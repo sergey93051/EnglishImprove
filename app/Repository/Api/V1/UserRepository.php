@@ -73,4 +73,12 @@ class UserRepository extends AbstractRepository
        return $user->update();
     }
 
+    /**
+     * @param int $userId
+     * @return void
+     */
+    public function deleteUser(int $userId)
+    {
+        $this->getUser($userId)->delete();
+    }
 }
