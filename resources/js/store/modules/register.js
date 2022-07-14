@@ -26,7 +26,7 @@ export default {
                             if (err.response.status == 422) {                                     
                                    if (err.response.data.errors['email']) {                                   
                                        stx.commit("registerError",err.response.data.errors['email'][0]);
-                                   }                        
+                                   }               
                           
                             }else{
                                 console.error("unconnected"+err);

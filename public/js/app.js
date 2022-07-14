@@ -24549,11 +24549,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   actions: {
-    getProfile: function getProfile(stx, arg) {
+    getProfile: function getProfile(stx) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        var response;
+        var response, profile;
         return _regeneratorRuntime().wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -24571,8 +24572,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 response = _context.sent;
 
                 if (response.status == 200) {
-                  stx.commit('status', 'your profile has been updated');
-                  s;
+                  profile = response.data;
+                  stx.commit('getProfile', {
+                    name: profile.name,
+                    surname: profile.surname,
+                    age: profile.age,
+                    image: profile.image,
+                    phone: profile.phone,
+                    phone_code: profile.phone_code,
+                    twoFa: profile.twoFa,
+                    address: profile.address
+                  });
                 }
 
                 _context.next = 10;
@@ -24591,15 +24601,61 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, null, [[0, 7]]);
       }))();
     },
-    twoAuth: function twoAuth(stx, arg) {
+    updateProfile: function updateProfile(stx, arg) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var response;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.prev = 0;
-                _context2.next = 3;
+                console.log(arg);
+                _context2.prev = 1;
+                _context2.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/v1/update-information', {
+                  name: arg.name,
+                  surname: arg.surname,
+                  age: arg.age,
+                  image: arg.image,
+                  address: arg.address
+                }, {
+                  headers: {
+                    'Authorization': 'Bearer ' + sessionStorage.getItem('_token'),
+                    "Accept": "application/json"
+                  }
+                });
+
+              case 4:
+                response = _context2.sent;
+
+                if (response.status == 200) {
+                  stx.commit('statusProfile', 'your profile has been updated');
+                }
+
+                _context2.next = 11;
+                break;
+
+              case 8:
+                _context2.prev = 8;
+                _context2.t0 = _context2["catch"](1);
+                console.error(_context2.t0);
+
+              case 11:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, null, [[1, 8]]);
+      }))();
+    },
+    twoAuth: function twoAuth(stx, arg) {
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var response;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.prev = 0;
+                _context3.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_0___default().put('/v1/update-2fa-state', {
                   'twoFa': arg.chooseSecondAuth ? 1 : 0
                 }, {
@@ -24610,40 +24666,57 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 3:
-                response = _context2.sent;
+                response = _context3.sent;
 
                 if (response.status == 200) {
-                  stx.commit('status', 'your profile has been updated');
+                  stx.commit('statusTwoAuth', 'the twoAuth has been updated');
                 }
 
-                _context2.next = 10;
+                _context3.next = 10;
                 break;
 
               case 7:
-                _context2.prev = 7;
-                _context2.t0 = _context2["catch"](0);
-                console.error(_context2.t0);
+                _context3.prev = 7;
+                _context3.t0 = _context3["catch"](0);
+                console.error(_context3.t0);
 
               case 10:
               case "end":
-                return _context2.stop();
+                return _context3.stop();
             }
           }
-        }, _callee2, null, [[0, 7]]);
+        }, _callee3, null, [[0, 7]]);
       }))();
     }
   },
   mutations: {
-    status: function status(state, _status) {
-      state.status = _status;
+    statusProfile: function statusProfile(state, status) {
+      state.statusProfile = status;
+    },
+    statusTwoAuth: function statusTwoAuth(state, getData) {
+      state.twoAuth = getData;
+    },
+    getProfile: function getProfile(state, getData) {
+      state.profile = getData;
     }
   },
   state: {
-    status: ""
+    statusProfile: "",
+    statustwoAuth: "",
+    profile: ''
   },
   getters: {
     profileUpdate: function profileUpdate(state) {
-      return state.status;
+      return state.statusProfile;
+    },
+    twoAuthupdate: function twoAuthupdate(state) {
+      return state.statustwoAuth;
+    },
+    getProfileData: function getProfileData(state) {
+      return state.profile;
+    },
+    profRemoveTemp: function profRemoveTemp(state) {
+      return state.profileUpdate = '';
     }
   }
 });

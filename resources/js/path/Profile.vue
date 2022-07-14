@@ -1,7 +1,7 @@
 <template>
   <section style="background-color: #eee;">
   <div class="container py-5">
-    <div class="row">
+    <!-- <div class="row">
       <div class="col">
         <nav aria-label="breadcrumb" class="bg-light rounded-3 p-3 mb-4">
           <ol class="breadcrumb mb-0">
@@ -11,14 +11,20 @@
           </ol>
         </nav>
       </div>
-    </div>
+    </div> -->
     <div class="row">
       <div class="col-lg-4">
         <div class="card mb-4">
           <div class="card-body text-center">
-            <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp" alt="avatar"
-              class="rounded-circle img-fluid" style="width: 150px;">
-            <h5 class="my-3">John Smith</h5>
+                <div class="main-upload">
+                     <div class="custom__image-container">
+                         <label id="add-img-label" for="add-single-img">+</label>
+                         <input @change="onFileUpload"  type="file" id="add-single-img" accept="image/jpeg" />
+                    </div>
+                </div>
+            <img :src="imageProfile" alt="avatar" class="rounded-circle img-fluid" style="width: 150px;">
+            
+            <h5 class="my-3">{{getProfileData.name}} {{getProfileData.surname}}</h5>
             <p class="text-muted mb-1">Full Stack Developer</p>
             <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
             <div class="d-flex justify-content-center mb-2">
@@ -55,14 +61,19 @@
         </div>
       </div>
       <div class="col-lg-8">
-        <div class="card mb-4">
+         <Form  @submit="onChangeProfile" :validation-schema="schemaProfile">
+             <div class="card mb-4">
           <div class="card-body">
             <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">Name</p>
               </div>
               <div class="col-sm-7">
-                <p class="text-muted mb-0"><input v-model="profName" type="text"  class="form-control"></p>
+                <p class="text-muted mb-0">          
+                      <Field ref="profName" name="profName" type="text" v-model="profName"  class="form-control" />         
+                      <small class="errorColor"><ErrorMessage name="profName" /></small>                 
+                </p>
+              
               </div>
             </div>
             <hr>
@@ -71,11 +82,20 @@
                 <p class="mb-0">Surname</p>
               </div>
               <div class="col-sm-7">
-                <p class="text-muted mb-0 "><input v-model="profSurname" type="text"  class="form-control"></p>
+                <p class="text-muted mb-0 "><input ref="profSurname" v-model="profSurname" type="text"  class="form-control"></p>
               </div>
             </div>
             <hr>
             <div class="row">
+              <div class="col-sm-3">
+                <p class="mb-0">Age</p>
+              </div>
+              <div class="col-sm-7">
+                <p class="text-muted mb-0 "><input ref="profAge" v-model="profAge" type="text"  class="form-control"></p>
+              </div>
+            </div>
+            <hr>
+            <!-- <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">Email</p>
               </div>
@@ -83,13 +103,13 @@
                 <p class="text-muted mb-0"><input v-model="profEmail" type="email" class="form-control"></p>
               </div>
             </div>
-            <hr>            
+            <hr>             -->
             <div class="row">
               <div class="col-sm-3">
                 <p class="mb-0">Mobile</p>
               </div>
               <div class="col-sm-7">
-                <p class="text-muted mb-0"><input v-model="profMobile" type="text" class="form-control"></p>
+                <p class="text-muted mb-0"><input ref="profMobile" v-model="profPhone" type="text" class="form-control"></p>
               </div>
             </div>
             <hr>
@@ -98,8 +118,8 @@
                 <p class="mb-0">Address</p>
               </div>
               <div class="col-sm-7">
-                <p class="text-muted mb-0"><input v-model="profAddress" type="text" class="form-control"></p>
-              </div>
+                <p class="text-muted mb-0"><input ref="profAddress" v-model="profAddress" type="text" class="form-control"></p>
+              </div> 
             </div>
              <hr>
              <div class="row">
@@ -107,18 +127,18 @@
                 <p class="mb-0">Turn on 2-Step Verification</p>
               </div>
               <div class="col-sm-7">
-                <p class="text-muted mb-0"><input id="chooseSecondAuth" class="p-1 m-1 " v-model="chooseSecondAuth" ref="chooseSecondAuth" type="checkbox" name="chooseSecondAuth"  /> </p>
+                <p class="text-muted mb-0"><input id="chooseSecondAuth"  class="p-1 m-1 " v-model="chooseSecondAuth" type="checkbox" name="chooseSecondAuth" /> </p>
               </div>
             </div>
-            <div class="row mt-2">
-             
+            <div class="row mt-2">             
               <div class="col-sm-7 p-2">
-                   <button class="btn btn-warning" @click="changeProfile">change</button>
+                   <button class="btn btn-warning">change</button>
                     <strong v-if="profileUpdate" class="alert alert-success ">{{profileUpdate}}</strong>
               </div>
             </div>
           </div>
         </div>
+         </Form>
         <div class="row">
           <div class="col-md-6">
             <div class="card mb-4 mb-md-0">
@@ -193,29 +213,94 @@
 </section>
 </template>
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+import { Form,Field,ErrorMessage} from 'vee-validate';
+import * as yup from 'yup';
 export default {
 
    data(){
        return {
-          chooseSecondAuth:""
+          //  profName:this.getProfileData.twoFa,
+          chooseSecondAuth:false,
+          imageProfile:'https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava3.webp',
+          bese64:'',
+          profName:"",        
+          profSurname:"",
+          profAge:"",
+          profAddress:"",
+          profPhone:""
+
        }
    },
     computed:{
-      ...mapGetters(['profileUpdate'])
+      ...mapGetters(['profileUpdate','getProfileData','profRemoveTemp']),
+      schemaProfile(){
+          return yup.object({
+               profName:yup.string().min(2).required(),
+           });
+      }
     },
-     methods:{
-       async changeProfile(){
-          await this.$store.dispatch('twoAuth',{
+    components: {
+              Form,
+              Field,
+              ErrorMessage
+     },
+     methods:{      
+       ...mapActions(['getProfile','updateProfile']),
+  
+      //  check (e) {
+      //    this.$nextTick(() => {
+      //     console.log(e)
+                  
+      //     })
+      //  },
+      async onFileUpload(event) {
+      
+        const files = [...event.target.files].map(file => {
+           const reader = new FileReader();      
+             return new Promise(resolve => {
+                reader.onload = () => resolve(btoa(reader.result));
+                reader.readAsDataURL(file);
+             });
+         });
+ 
+         const getNewFile = await Promise.all(files);
+         this.bese64 = getNewFile[0];
+      },
+       async onChangeProfile(){          
+           
+           await this.updateProfile({       
+                   name:this.profName,
+                   surname:this.profSurname,
+                   age:this.profAge,
+                   image:this.bese64,
+                   address:this.profAddress
+               });
+           
+           await this.$store.dispatch('twoAuth',{
                chooseSecondAuth:this.chooseSecondAuth
            });            
         }
      },
+    async created(){ 
+          await this.getProfile();
+          this.chooseSecondAuth = this.getProfileData.twoFa ? true:false; 
+          this.profName = this.getProfileData.name; 
+          this.profSurname =  this.getProfileData.surname;
+          this.profAge = this.getProfileData.age;
+          this.profAddress = this.getProfileData.address;
+          this.profPhone = this.getProfileData.phone_code+' '+this.getProfileData.phone       
+     },
+     mounted(){          
+          
+     },  
      async unmounted() {
-        // await this.destroyTemp.delLoginError;
+          await this.profRemoveTemp;
      },
 }
 </script>
-<style>
+<style scoped>
+@import '../../css/uploadImage.css';
+
 
 </style>
