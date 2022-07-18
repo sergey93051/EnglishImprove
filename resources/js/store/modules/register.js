@@ -13,8 +13,7 @@ export default {
                                role:get.role,
                                password:get.password
                             }
-                        ); 
-
+                        );
                          if(response.status==201){                              
                             sessionStorage.setItem('_token',response.data.token);                  
                             sessionStorage.setItem('email_verified',response.data.email_verified);
