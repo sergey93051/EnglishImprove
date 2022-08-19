@@ -2,7 +2,7 @@
     <main>
          <header v-if="noPath">
               <Top :isVerify='isEmailVerify'/>  
-              <Navbar  :isAuth='sessionAuth' :isVerify='isEmailVerify' />    
+              <Navbar :isAuth='sessionAuth' :isVerify='isEmailVerify' />    
          </header>
          <router-view />
     </main>

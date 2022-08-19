@@ -86,7 +86,7 @@ export default {
       _id: this.$route.params.id,
       setInt: null,
       priceProduct: [],
-      myprice: 0,
+       myprice: 0,
        tweened: 0,
        number:750
       // getProduct:[]

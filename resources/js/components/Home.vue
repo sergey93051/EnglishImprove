@@ -32,9 +32,7 @@
     <div class="row m-3" v-if="searchResult">
       <div
         class="col-md-8 col-lg-6 col-xl-4"
-        v-for="(item) in searchResult"
-        :key="item.id"
-      >
+        v-for="(item) in searchResult" :key="item.id">
         <div class="card m-md-2" style="border-radius: 15px">
           <div
             class="

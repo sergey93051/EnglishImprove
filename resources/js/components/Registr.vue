@@ -13,8 +13,9 @@
                 <label
                   for="nameRules"
                   class="col-sm-4 col-form-label text-md-right"
-                  >Name</label
-                >
+                  >
+                  Name
+                  </label>
                 <div class="col-md-6 p-2">
                   <Field
                     name="nameRules"
